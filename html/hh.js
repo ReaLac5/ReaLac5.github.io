@@ -97,13 +97,13 @@ async function fetchAnalyticsData() {
 // Funkcija za renderiranje grafikona
 function renderChart(data) {
   if (!data || !data.rows || data.rows.length === 0) {
+    alert("No data available for the selected date range.");
     console.error("No data available for display.");
     return;
   }
 
-  // Extract labels (e.g., dates) and data points (e.g., active users)
-  const labels = data.rows.map(row => row.dimensionValues[0].value); // First dimension (e.g., date)
-  const activeUsers = data.rows.map(row => parseInt(row.metricValues[0].value, 10)); // First metric (activeUsers)
+  const labels = data.rows.map(row => row.dimensionValues[0].value);
+  const activeUsers = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
 
   const chartData = {
     labels: labels,
@@ -129,6 +129,7 @@ function renderChart(data) {
     },
   });
 }
+
 
 // Inicijalizacija nakon učitavanja stranice
 window.onload = function() {
