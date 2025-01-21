@@ -64,7 +64,7 @@ async function fetchAnalyticsData() {
   const requestBody = {
     dimensions: [{ name: 'date' }, { name: 'country' }],
     metrics: [{ name: 'activeUsers' }],
-    dateRanges: [{ startDate: '7daysAgo', endDate: 'today' }],
+    dateRanges: [{ startDate: 'today', endDate: 'today' }],
   };
 
   try {
