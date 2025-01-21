@@ -1,127 +1,133 @@
 const CLIENT_ID = '1097344377477-00qph6q9jiin2muv6ntpsg9go98lqbfe.apps.googleusercontent.com';
-const API_KEY = 'AIzaSyBdJdlS7a_e3oidJYrT9PfnAxPYtXri0UM';
-const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/analytics/v3/rest'];
-const SCOPES = 'https://www.googleapis.com/auth/analytics.readonly';
-const REDIRECT_URI = 'https://realac5.github.io/html/chart.html';
+        const API_KEY = 'AIzaSyBdJdlS7a_e3oidJYrT9PfnAxPYtXri0UM';
+        const DISCOVERY_DOCS = ['https://analyticsdata.googleapis.com/$discovery/rest?version=v1beta'];
+        const SCOPES = 'https://www.googleapis.com/auth/analytics.readonly';
 
-let isAuthenticated = false;
-let tokenClient;
+        let isAuthenticated = false;
 
-// Funkcija koja se poziva kad je korisnik autentificiran
-function handleCredentialResponse(response) {
-  console.log(response);
-  const credential = response.credential;
-  if (credential) {
-    const token = credential;
-    localStorage.setItem("access_token", token); 
-    isAuthenticated = true;
-    document.getElementById('chart').style.display = 'block';
-    fetchAnalyticsData();
-  } else {
-    console.error("Nema tokena.");
-  }
-}
+        // Inicijalizacija Google API-ja
+        function initClient() {
+            gapi.load('client:auth2', async () => {
+                await gapi.client.init({
+                    apiKey: API_KEY,
+                    clientId: CLIENT_ID,
+                    discoveryDocs: DISCOVERY_DOCS,
+                    scope: SCOPES
+                });
 
-// Funkcija za pokretanje autentifikacije
-function handleAuthClick() {
-  google.accounts.id.initialize({
-    client_id: CLIENT_ID,
-    callback: handleCredentialResponse,
-  });
+                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+            });
+        }
 
-  google.accounts.id.prompt(); 
-}
+        // Provjera statusa prijave
+        function updateSigninStatus(isSignedIn) {
+            if (isSignedIn) {
+                isAuthenticated = true;
+                document.getElementById('chart').style.display = 'block';
+                fetchAnalyticsData();
+            } else {
+                isAuthenticated = false;
+                document.getElementById('chart').style.display = 'none';
+            }
+        }
 
-// Funkcija za odjavu korisnika
-function handleSignoutClick() {
-  google.accounts.oauth2.revoke(localStorage.getItem("access_token"), () => {
-    isAuthenticated = false;
-    document.getElementById('chart').style.display = 'none';
-    console.log("User signed out.");
-  });
-  localStorage.removeItem("access_token");
-}
+        // Funkcija za prijavu
+        function handleAuthClick() {
+            gapi.auth2.getAuthInstance().signIn().then(user => {
+                const token = user.getAuthResponse().access_token;
+                localStorage.setItem("access_token", token);
+                isAuthenticated = true;
+                document.getElementById('chart').style.display = 'block';
+                fetchAnalyticsData();
+            }).catch(error => {
+                console.error("Prijava nije uspjela:", error);
+            });
+        }
 
-// Dohvaćanje podataka iz Google Analytics API-a
-async function fetchAnalyticsData() {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    console.error("Nema pristupnog tokena. Prijavite se ponovno.");
-    return;
-  }
+        // Funkcija za odjavu
+        function handleSignoutClick() {
+            gapi.auth2.getAuthInstance().signOut().then(() => {
+                localStorage.removeItem("access_token");
+                isAuthenticated = false;
+                document.getElementById('chart').style.display = 'none';
+                console.log("Korisnik je odjavljen.");
+            });
+        }
 
-  const propertyId = '474019939';  // Provjeri ispravan Property ID
-  const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`;
+        // Dohvaćanje podataka iz Google Analytics API-ja
+        async function fetchAnalyticsData() {
+            const token = localStorage.getItem("access_token");
+            if (!token) {
+                console.error("Nema pristupnog tokena. Prijavite se ponovno.");
+                return;
+            }
 
-  const requestBody = {
-    dimensions: [{ name: 'date' }, { name: 'country' }],
-    metrics: [{ name: 'activeUsers' }],
-    dateRanges: [{ startDate: '7daysAgo', endDate: 'today' }]
-  };
+            const propertyId = '474019939';  // Unesi ispravan Property ID
+            const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`;
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    });
+            const requestBody = {
+                dimensions: [{ name: 'date' }, { name: 'country' }],
+                metrics: [{ name: 'activeUsers' }],
+                dateRanges: [{ startDate: '7daysAgo', endDate: 'today' }]
+            };
 
-    if (!response.ok) {
-      const errorDetails = await response.json();
-      console.error(`Greška u API pozivu: ${response.status} - ${errorDetails.error.message}`);
-      return;
-    }
-    else{
-      const data = await response.json();
-      renderChart(data);
-    }
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody),
+                });
 
-  } catch (err) {
-    console.error("Greška u dohvaćanju podataka:", err);
-  }
-}
+                if (!response.ok) {
+                    const errorDetails = await response.json();
+                    console.error(`Greška u API pozivu: ${response.status} - ${errorDetails.error.message}`);
+                    return;
+                }
 
-// Funkcija za renderiranje grafikona
-function renderChart(data) {
-  if (!data || !data.rows) {
-    console.error("Nema podataka za prikaz.");
-    return;
-  }
+                const data = await response.json();
+                renderChart(data);
+            } catch (err) {
+                console.error("Greška u dohvaćanju podataka:", err);
+            }
+        }
 
-  const labels = data.rows.map(row => row[0]); 
-  const chartData = {
-    labels: labels,
-    datasets: [{
-      label: 'Active Users',
-      data: data.rows.map(row => row[1]),
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      borderColor: 'rgba(75, 192, 192, 1)',
-      borderWidth: 1,
-    }],
-  };
+        // Prikazivanje grafikona s podacima
+        function renderChart(data) {
+            if (!data || !data.rows) {
+                console.error("Nema podataka za prikaz.");
+                return;
+            }
 
-  const ctx = document.getElementById('chart').getContext('2d');
-  new Chart(ctx, {
-    type: 'bar',
-    data: chartData,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: 'top' },
-        title: { display: true, text: 'Google Analytics Data' },
-      },
-    },
-  });
-}
+            const labels = data.rows.map(row => row.dimensionValues[0].value); 
+            const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
 
-// Inicijalizirajte Google Identity Services
-window.onload = function() {
-  google.accounts.id.initialize({
-    client_id: CLIENT_ID,
-    callback: handleCredentialResponse,
-  });
-  document.querySelector('button[onclick="handleAuthClick()"]').disabled = false; 
-};
+            const chartData = {
+                labels: labels,
+                datasets: [{
+                    label: 'Active Users',
+                    data: values,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                }],
+            };
+
+            const ctx = document.getElementById('chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: { display: true, text: 'Google Analytics Data' },
+                    },
+                },
+            });
+        }
+
+        window.onload = initClient;
