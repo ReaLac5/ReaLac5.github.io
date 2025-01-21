@@ -45,13 +45,12 @@ function handleSignoutClick() {
 // Dohvaćanje podataka iz Google Analytics API-a
 async function fetchAnalyticsData() {
   const token = localStorage.getItem("access_token");
-  console.log(token)
   if (!token) {
     console.error("Nema pristupnog tokena. Prijavite se ponovno.");
     return;
   }
 
-  const propertyId = '474019939';  // Zamijeni s tvojim Google Analytics Property ID
+  const propertyId = '474019939';  // Provjeri ispravan Property ID
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`;
 
   const requestBody = {
@@ -69,6 +68,12 @@ async function fetchAnalyticsData() {
       },
       body: JSON.stringify(requestBody),
     });
+
+    if (!response.ok) {
+      const errorDetails = await response.json();
+      console.error(`Greška u API pozivu: ${response.status} - ${errorDetails.error.message}`);
+      return;
+    }
 
     const data = await response.json();
     renderChart(data);

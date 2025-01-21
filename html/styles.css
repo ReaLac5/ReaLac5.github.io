@@ -1,6 +1,10 @@
 /* Sakrivanje tipke za odjavu prema zadanim postavkama */
 button[onclick="handleSignoutClick()"] {
     display: none;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
   }
   
   /* Stil za platno Chart.js grafikona */
@@ -8,4 +12,19 @@ button[onclick="handleSignoutClick()"] {
     display: none;
     width: 400px;
     height: 200px;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
   }
