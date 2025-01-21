@@ -51,7 +51,7 @@ async function fetchAnalyticsData() {
   }
 
   const propertyId = '474019939';  // Provjeri ispravan Property ID
-  const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`;
+  const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport?access_token=${token}`;
 
   const requestBody = {
     dimensions: [{ name: 'date' }, { name: 'country' }],
