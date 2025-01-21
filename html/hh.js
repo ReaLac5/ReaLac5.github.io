@@ -96,17 +96,20 @@ async function fetchAnalyticsData() {
 
 // Funkcija za renderiranje grafikona
 function renderChart(data) {
-  if (!data || !data.rows) {
-    console.error("Nema podataka za prikaz.");
+  if (!data || !data.rows || data.rows.length === 0) {
+    console.error("No data available for display.");
     return;
   }
 
-  const labels = data.rows.map(row => row[0]);
+  // Extract labels (e.g., dates) and data points (e.g., active users)
+  const labels = data.rows.map(row => row.dimensionValues[0].value); // First dimension (e.g., date)
+  const activeUsers = data.rows.map(row => parseInt(row.metricValues[0].value, 10)); // First metric (activeUsers)
+
   const chartData = {
     labels: labels,
     datasets: [{
       label: 'Active Users',
-      data: data.rows.map(row => row[1]),
+      data: activeUsers,
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
       borderColor: 'rgba(75, 192, 192, 1)',
       borderWidth: 1,
