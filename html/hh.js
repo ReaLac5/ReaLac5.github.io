@@ -74,9 +74,11 @@ async function fetchAnalyticsData() {
       console.error(`Greška u API pozivu: ${response.status} - ${errorDetails.error.message}`);
       return;
     }
-
-    const data = await response.json();
-    renderChart(data);
+    else{
+      const data = await response.json();
+      renderChart(data);
+    }
+    
   } catch (err) {
     console.error("Greška u dohvaćanju podataka:", err);
   }
