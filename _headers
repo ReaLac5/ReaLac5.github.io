@@ -1,7 +1,0 @@
-/* 
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Embedder-Policy: require-corp
-  Access-Control-Allow-Origin: *
-  Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-  Access-Control-Allow-Headers: Content-Type, Authorization
-  Content-Security-Policy:  default-src 'self'; script-src 'self' https://apis.google.com https://accounts.google.com https://cdn.jsdelivr.net https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self' https://www.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; object-src 'none'; upgrade-insecure-requests;
