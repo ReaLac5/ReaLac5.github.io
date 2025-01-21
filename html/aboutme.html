@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ2TV2NR0V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NZ2TV2NR0V');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O meni</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .about-section {
+            margin-top: 30px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-text {
+            color: #37474f;
+            font-size: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .about-text{
+                font-size: 18px;
+            }
+        }
+
+        .profile-img-about {
+            width: 100%; 
+            max-width: 550px; 
+            height: auto; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-title {
+            font-weight: bold;
+            font-size: 28px;
+            color: #37474f;
+            margin-top: 20px;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            font-size: 25px;
+            color: #ffffff;
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Razmak između gumba i ikona */
+        }
+
+        .sections {
+            background-color: #78909c;
+            height: auto;
+            padding: 30px;
+            color: #ffffff;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 150px;
+            display: flex;
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 320px;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        .section-hidden {
+            opacity: 0;
+            transform: translateY(100px); /* da počne od dole */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        .btn-outline-light {
+            font-size: 18px;
+            border-radius: 0;
+            color: #364f59;
+            background-color: #e0f7fa;
+            font-weight: bold;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #78909c;
+            color: #e0f7fa;
+            border-radius: 0;
+        }
+        .technologies-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #37474f;
+            margin-top: 20px;
+            display: inline-flex;
+            justify-content: space-between; /* da zauzmu cijelu širinu */
+            animation: scroll-left 8s linear infinite;
+            white-space: nowrap;
+            flex-wrap: nowrap;
+            padding: 0 10px; 
+            text-align: center;
+            width: 100%; 
+        }
+
+        .technologies-text span {
+            /*flex: 1; /* da svaki span uzme istu sirinu */
+            text-align: center;
+        }
+
+        .technologies-text-container {
+            overflow: hidden; /* da se ne vide izvan kontejnera */
+            white-space: nowrap;
+            position: relative;
+            width: 98%; 
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .skills-tag-cloud {
+            text-align: center;
+            margin: 20px 0;
+            line-height: 2; /* 2 puta više vertikalnog prostora nego veličina fonta*/
+        }
+
+        .skills-tag-cloud span {
+            margin: 10px;
+            font-size: 20px;
+            display: inline-block; /* da span postane kao blok i da se može primijenit CSS*/
+        }
+
+
+        @keyframes scroll-left {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(100%);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .profile-img-about{
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .technologies-text {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .technologies-text {
+                font-size: 12px;
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .animate-skill {
+            animation: bounce 0.6s ease;
+            color: #bae1e0; 
+        }
+
+
+    </style>
+</head>
+<body class = "page-container">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="../index.html">
+            <img src="../images/logoLight.png" alt="Logo" class="navbar-logo img-fluid" id = "navbar-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link active" href="aboutme.html">O meni</a></li>
+                <li class="nav-item"><a class="nav-link" href="projects.html">Projekti</a></li>
+                <li class="nav-item"><a class="nav-link" href="cv.html">CV</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <h2 class="mt-5 header">Kratke informacije o meni!</h2>
+    <hr class="mb-5" style="width: 63%; margin: 0 auto; border-top: 3px solid #4f5b66;">
+
+    <div class = "container">
+        <div class="row about-section">
+            <div class="col-lg-5 text-center">
+                <img src="../images/portret.png" alt="Teo Matijašić" class="profile-img-about">
+            </div>
+            <div class="col-lg-7 about-text">
+                <h3 class="main-title">Teo Matijašić</h3>
+                <p class = "quote_smaller">“Sve projekte, koje sam izradio za fakultet, karakterizira jednostavnost, praktičnost i usmjerenost na korisnika.”</p>
+                <br>
+                <h5 style = "font-weight: bold;
+                font-size: 25px;
+                color: #37474f;
+                margin-top: 10px;">OPĆENITO</h5>
+                <p class="about-text">Ja sam student Fakulteta informatike i digitalnih tehnologija u Rijeci koji voli učiti nove stvari i biti uporan u savladavanju novih vještina. Moji radovi obuhvaćaju područja istraživanja korisnika, UI/UX dizajna i razvoja različitih vrsta aplikacija.<br>
+            </div>
+            <hr class="mt-5" style="width: 98%; margin: 0 auto; border-top: 3px solid #4f5b66;">
+            <div class = technologies-text-container>
+            <p class="technologies-text">
+                <span>React</span>
+                <span>Figma</span>
+                <span>Clarion</span>
+                <span>SQL</span>
+                <span>C#</span>
+                <span>.NET</span>
+                <span>PostgreSQL</span>
+            </p>       
+        </div>     
+            <hr class="mb-5" style="width: 98%; margin: 0 auto; border-top: 3px solid #4f5b66;">
+        </div>
+        <br>
+
+        <div class="sections">
+            <h5 class="section-title">OBRAZOVANJE</h5>
+            <p>Moje putovanje započinje tijekom srednjoškolskog obrazovanja u gimnaziji u Opatiji gdje mi se javila zainteresiranost za informatiku. Putovanje nastavljam na Fakultetu Informatike i Digitalnih Tehnologija u Rijeci gdje uz solidne rezultate postižem napredak u različitim vještinama.</p>
+        </div>
+
+        <div class="sections">
+            <h5 class="section-title">VJEŠTINE</h5>
+            <div class="skills-tag-cloud">
+                <span>HTML i CSS</span>
+                <span>React</span>
+                <span>Figma</span>
+                <span>SQL</span>
+                <span>JavaScript</span>
+                <span >Clarion</span>
+                <span>PostgreSQL</span>
+            </div>
+        </div>
+
+        <div class="sections">
+            <h5 class="section-title">PROJEKTI</h5>
+            <p>Predstavljeni projekti predstavljaju glavna područja moga djelovanja, a njihovu kvalitetu potvrđuju odlične povratne informacije korisnika i kolega s fakulteta.</p>
+            <a href="projects.html" class="btn btn-outline-light">Moji projekti</a> </div>
+        </div>
+        <br>
+        <br>
+        <footer class="footer">
+            <div class="container d-flex flex-column align-items-center justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <a href="contact.html" class="btn btn-custom mr-3 mt-3">Kontaktiraj me!</a>
+                    <a href="cv.html" class="btn btn-custom ml-3">Moj životopis!</a>
+
+                    <div class="d-flex justify-content-center social-icons">
+                        <a href="https://www.facebook.com/teo.matijasic" target="_blank"><i class="fab fa-facebook-f mr-3 mt-4"></i></a>
+                        <a href="https://www.instagram.com/teomatijasic/" target="_blank"><i class="fab fa-instagram mr-3 mt-4"></i></a>
+                        <a href="https://github.com/T30M47" target="_blank"><i class="fab fa-github mt-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+        </footer>
+    </div>
+
+    <script src = "../javascript/aboutme_script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

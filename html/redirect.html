@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Auth Redirect</title>
+  <script>
+    // Parsiranje tokena iz URL-a
+    function parseToken() {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const accessToken = hashParams.get("access_token");
+
+      if (accessToken) {
+        console.log("Access Token:", accessToken);
+        localStorage.setItem("access_token", accessToken); // Spremi token za kasniju upotrebu
+        window.location.href = '/html/chart.html'; // Vrati korisnika na glavnu stranicu
+      } else {
+        console.error("Access token nije pronađen u URL-u.");
+      }
+    }
+
+    window.onload = parseToken;
+  </script>
+</head>
+<body>
+  <h1>Procesiranje autentifikacije...</h1>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "portfolio_matijasic",
+  "version": "1.0.0",
+  "description": "These are the files for my website / web portfolio.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/T30M47/Portfolio_Matijasic.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/T30M47/Portfolio_Matijasic/issues"
+  },
+  "homepage": "https://github.com/T30M47/Portfolio_Matijasic#readme",
+  "dependencies": {
+    "axios": "^1.7.9"
+  }
+}

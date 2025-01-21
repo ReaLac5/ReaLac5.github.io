@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ2TV2NR0V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NZ2TV2NR0V');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moj Životopis (CV)</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src = "https://cdn.jsdelivr.net/npm/d3@7"></script> 
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .cv-section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .cv-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-download {
+            background-color: #364f59;
+            color: white;
+            border-radius: 0;
+            border: 1px solid transparent;
+            font-size: 16px;
+            padding: 10px 20px;
+            margin-top: 20px;
+        }
+
+        .btn-download:hover {
+            background-color: #e0f7fa;
+            color: #364f59;
+            border: 1px solid #364f59;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .image-animation {
+            animation-delay: 0.5s;
+        }
+
+        .button-animation {
+            animation-delay: 1s;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../images/logoLight.png" alt="Logo" class="navbar-logo img-fluid" id="navbar-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="aboutme.html">O meni</a></li>
+                    <li class="nav-item"><a class="nav-link" href="projects.html">Projekti</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="cv.html">CV</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="content">
+            <h2 class="mt-5 header text-center">Moj životopis (CV)</h2>
+            <hr class="mb-5" style="width: 60%; margin: 0 auto; border-top: 3px solid #4f5b66;">
+
+
+            <div class="cv-section">
+                <img src="../images/slikacv.png" alt="CV Image" class="cv-image">
+                <a href="../files/CV.pdf" target="_blank" download class="btn btn-download mb-5">Preuzmi CV</a>
+            </div>
+        </div>
+        
+        <div id="modal-container"></div>
+
+        <footer class="footer">
+            <div class="container d-flex flex-column align-items-center justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <a href="contact.html" class="btn btn-custom mr-3 mt-3">Kontaktiraj me!</a>
+                    <a href="cv.html" class="btn btn-custom ml-3">Moj životopis!</a>
+                    <div class="d-flex justify-content-center social-icons">
+                        <a href="https://www.facebook.com/teo.matijasic" target="_blank"><i class="fab fa-facebook-f mr-3 mt-4"></i></a>
+                        <a href="https://www.instagram.com/teomatijasic/" target="_blank"><i class="fab fa-instagram mr-3 mt-4"></i></a>
+                        <a href="https://github.com/T30M47" target="_blank"><i class="fab fa-github mt-4"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../javascript/cv_script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

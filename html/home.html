@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ2TV2NR0V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NZ2TV2NR0V');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="../index.html">
+            <img src="../images/logoLight.png" alt="Logo" class="navbar-logo img-fluid" id = "navbar-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="aboutme.html">O meni</a></li>
+                <li class="nav-item"><a class="nav-link" href="projects.html">Projekti</a></li>
+                <li class="nav-item"><a class="nav-link" href="cv.html">CV</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero-section d-flex align-items-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 text-center">
+                    <img src="../images/portret.png" alt="Teo Matijašić" class="profile-img img-fluid" id="profileImg" onmouseenter="this.src='../images/cartoon.png';" onmouseleave="this.src='../images/portret.png';">
+                    <!--<img src="../images/cartoon.jpg" alt="Teo Matijašić Cartoon" class="profile-img-hover img-fluid" id="profileImgHover">-->
+                </div>
+                <div class="col-lg-6 ">
+                    <div class="hero-text">
+                        <h2>Teo Matijašić</h2>
+                        <hr>
+                        <p class = "quote">“Stvaram desktop/web i mobilne aplikacije s jednostavnim i privlačnim sučeljem.”</p>
+                        <br>
+                        <p>Putem ovoga web sjedišta, detaljnije me možeš upoznati, otkriti moje specijalnosti i vještine, pregledati moje projekte i radove ili me kontaktirati za moguću suradnju.</p>
+                        <a href="aboutme.html" class = "btn btn-outline-dark">Saznaj više o meni! →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <script src = "../javascript/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ2TV2NR0V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NZ2TV2NR0V');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekti</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+         .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .page-title {
+            text-align: center;
+            color: #4f5b66;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .project-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            gap: 30px;
+        }
+
+        .project-card {
+            width: 100%;
+            max-width: 1100px;
+            background-color: #e0f7fa;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: stretch;  /* da je visina jednaka*/
+            flex-direction: row;
+            align-items: center;
+            gap: 30px;
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .project-card.hidden {
+            opacity: 0;
+            transform: translateX(0);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .project-card.animate-left {
+            animation: slideInFromLeft 1s forwards; /* da se ne vrati u početno stanje*/
+        }
+
+        .project-card.animate-right {
+            animation: slideInFromRight 1s forwards;
+        }
+
+        .project-image {
+            width: 400px;
+            object-fit: cover;  /* da se slika na izoblici */
+            height: 100%; 
+        }
+
+        .project-details {
+            flex-grow: 1;
+        }
+
+        .project-title {
+            font-weight: bold;
+            color: #37474f;
+            margin-bottom: 10px;
+        }
+
+        .project-info {
+            font-size: 17px;
+            color: #37474f;
+            margin-bottom: 10px;
+        }
+
+        .btn-more {
+            background-color: #364f59;
+            color: #ffffff;
+            padding: 8px 20px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 1px solid transparent;
+        }
+
+        .btn-more:hover {
+            background-color: #e0f7fa;
+            border-color: #364f59; 
+            border-width: 1px;
+            text-decoration: none;
+            color: #364f59; 
+        }
+
+        @media (max-width: 1000px) {
+        .project-card {
+            flex-direction: column; 
+        }
+        .project-image {
+            width: 100%; 
+            max-width: 500px;
+        }
+    }
+    </style>
+</head>
+<body class = "page-container">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="../index.html">
+            <img src="../images/logoLight.png" alt="Logo" class="navbar-logo img-fluid" id="navbar-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="aboutme.html">O meni</a></li>
+                <li class="nav-item"><a class="nav-link active" href="projects.html">Projekti</a></li>
+                <li class="nav-item"><a class="nav-link" href="cv.html">CV</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h2 class="page-title mt-5">Moji projekti i radovi!</h2>
+    <hr class="mb-5" style="width: 63%; margin: 0 auto; border-top: 3px solid #4f5b66;">
+
+
+
+    <div class="container project-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="project-card hidden">
+                    <img src="../images/praksaloginmain.png" alt="Project 1" class="project-image">
+                    <div class="project-details">
+                        <h3 class="project-title">Web aplikacija za stručnu praksu</h3>
+                        <p class="project-info"><strong>Područje:</strong>Web razvoj, Backend-Middle-Frontend, Web aplikacija </p>
+                        <p class="project-info"><strong>Problem:</strong> Razvoj cjelokupne web aplikacije za evidenciju stručne prakse na fakultetima</p>
+                        <p class="project-info"><strong>Rezultat:</strong> Kreirana funkcionalna web aplikacija s brojnim mogućnostima, spremno za produkciju.</p>
+                        <a href="project1.html" class="btn-more">Saznaj više →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="container project-container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="project-card hidden">
+                    <img src="../images/servisly_thumbnail.png" alt="Project 2" class="project-image">
+                    <div class="project-details">
+                        <h3 class="project-title">Dizajn aplikacije Servisly</h3>
+                        <p class="project-info"><strong>Područje:</strong> UI/UX dizajn mobilne aplikacije, istraživanje korisnika</p>
+                        <p class="project-info"><strong>Problem:</strong> Dizajniranje mobilne aplikacije Servisly</p>
+                        <p class="project-info"><strong>Rezultat:</strong> Kreativan dizajn aplikacije Servisly, 100% ispitanika zadovoljni projektom, spremno za razvoj</p>
+                        <a href="project2.html" class="btn-more">Saznaj više →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-12">
+                <div class="project-card hidden">
+                    <img src="../images/putni_thumbnail.png" alt="Project 3" class="project-image">
+                    <div class="project-details">
+                        <h3 class="project-title">Aplikacija za putne naloge</h3>
+                        <p class="project-info"><strong>Područje:</strong> Clarion, modeliranje podataka, desktop aplikacije, UI/UX dizajn, programsko inženjerstvo</p>
+                        <p class="project-info"><strong>Problem:</strong> Razvoj desktop aplikacije za evidenciju putnih naloga</p>
+                        <p class="project-info"><strong>Rezultat:</strong> Intuitivna aplikacija s jednostavnim sučeljem, 94% korisnika zadovoljni korištenjem</p>
+                        <a href="project3.html" class="btn-more">Saznaj više →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <footer class="footer">
+        <div class="container d-flex flex-column align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <a href="contact.html" class="btn btn-custom mr-3 mt-3">Kontaktiraj me!</a>
+                <a href="cv.html" class="btn btn-custom ml-3">Moj životopis!</a>
+
+                <div class="d-flex justify-content-center social-icons">
+                    <a href="https://www.facebook.com/teo.matijasic" target="_blank"><i class="fab fa-facebook-f mr-3 mt-4"></i></a>
+                    <a href="https://www.instagram.com/teomatijasic/" target="_blank"><i class="fab fa-instagram mr-3 mt-4"></i></a>
+                    <a href="https://github.com/T30M47" target="_blank"><i class="fab fa-github mt-4"></i></a>
+                </div>
+            </div>
+        </div>
+        
+    </footer>
+
+    <script src = "../javascript/projects_script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

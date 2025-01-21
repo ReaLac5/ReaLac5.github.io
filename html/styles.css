@@ -1,0 +1,11 @@
+/* Sakrivanje tipke za odjavu prema zadanim postavkama */
+button[onclick="handleSignoutClick()"] {
+    display: none;
+  }
+  
+  /* Stil za platno Chart.js grafikona */
+  #chart {
+    display: none;
+    width: 400px;
+    height: 200px;
+  }

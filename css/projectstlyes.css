@@ -1,0 +1,171 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.page-title {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 23px;
+}
+
+.project-header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.project-header img {
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.project-section-keywords {
+    padding: 30px;
+    text-align: center;
+    font-size: 1.25rem; 
+    white-space: nowrap; /* Da ne ide u dva reda */
+    overflow: hidden; 
+    position: relative;
+    width: 100%;
+    margin-bottom: 80px;
+}
+
+.animated-keywords {
+    display: inline-flex;
+    white-space: nowrap; 
+    animation: scroll-left 8s linear infinite; 
+    align-items: center; 
+}
+
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(-120%); 
+    }
+    to {
+        transform: translateX(125%); 
+  }
+}
+
+.project-section {
+    margin-top: 40px;
+    min-height: 300px;
+    align-items: center;
+    height: auto;
+    display: flex;
+    padding: 20px;
+    margin-bottom: 120px;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.project-section.alt-bg {
+    background-color: #4f5b66;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 300px;
+    align-items: center;
+    height: auto;
+    display: flex;
+}
+
+.project-section h5 {
+    font-weight: bold;
+    font-size: 23px;
+    color: #333;
+}
+
+.project-section-hidden {
+    opacity: 0;
+    transform: scale(0.9); 
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-section-visible {
+    opacity: 1;
+    transform: scale(1); 
+    animation: bounce-scale 0.6s ease-out;
+}
+
+
+@keyframes bounce-scale {
+    0% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.result-image {
+    max-width: 100%;
+    margin: 10px 0;
+    max-height: 300px;  
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.result-image:hover {
+    transform: scale(1.03); 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+}
+
+/* Centriranje sadržaja u stupcima */
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+@media (max-width: 1000px) {
+    .project-section-keywords h4{
+        font-size: 1.3rem; 
+    }
+}
+
+
+@media (max-width: 768px) {
+    .page-title{
+        font-size: 22px;
+    }
+    .project-section .row {
+        flex-direction: column;
+    }
+    .result-image{
+        margin-bottom: 30px;
+    }
+    .project-section-keywords h4{
+        font-size: 1rem;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .project-section-keywords h4{
+        font-size: 1rem; 
+    }
+}
+
+@media (max-width: 420px) {
+    .project-section-keywords h4{
+        font-size: 0.9rem; 
+    }
+}
+
+
+
+.footer-title {
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}

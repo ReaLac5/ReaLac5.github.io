@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ2TV2NR0V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NZ2TV2NR0V');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontaktiraj me</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src = "https://cdn.jsdelivr.net/npm/d3@7"></script> 
+    <style>
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .contact-card {
+            background-color: #37474f;
+            color: white;
+            padding: 30px;
+            border-radius: 0;
+            text-align: center;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .contact-section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .social-icons i {
+            color: #ffffff;
+            margin: 0 20px;
+            font-size: 28px;
+        }
+
+        .social-icons i:hover{
+            transform: scale(1.1);
+        }
+        .contact-form {
+            max-width: 800px;
+            margin: 20px auto;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .form-control {
+            border-radius: 0px;
+        }
+
+        .contact-title{
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .btn-submit {
+            background-color: #364f59;
+            color: white;
+            border: 1px solid transparent;
+            border-radius: 0px;
+        }
+
+        .btn-submit:hover {
+            background-color: #e0f7fa;
+            color:#364f59;
+            border: 1px solid #364f59;
+        }
+        @keyframes scaleBounce {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .scale-bounce {
+            visibility: visible;
+            animation: scaleBounce 1s ease-out forwards;
+        }
+
+        .card-animation {
+            animation-delay: 0.3s;  
+        }
+
+        .form-animation {
+            animation-delay: 0.6s;  
+        }
+    </style>
+</head>
+<body class = "page-container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="../index.html">
+            <img src="../images/logoLight.png" alt="Logo" class="navbar-logo img-fluid" id="navbar-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="aboutme.html">O meni</a></li>
+                <li class="nav-item"><a class="nav-link" href="projects.html">Projekti</a></li>
+                <li class="nav-item"><a class="nav-link" href="cv.html">CV</a></li>
+                <li class="nav-item"><a class="nav-link active" href="contact.html">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h2 class="mt-5 header">Kontaktiraj me!</h2>
+    <hr class="mb-5" style="width: 63%; margin: 0 auto; border-top: 3px solid #4f5b66;">
+
+    <div class="contact-section">
+        <div class="contact-card">
+            <h3 style = "font-size: 26px;"><strong>Teo Matijašić</strong></h3>
+            <br>
+            <p style = "font-size: 18px;"><strong>Broj telefona:</strong> 091 954 6450</p>
+            <p style = "font-size: 18px;"><strong>Email:</strong> teo12matijasic@gmail.com</p>
+            <p style = "font-size: 18px;"><strong>Društvene mreže:</strong></p>
+            <div class="social-icons mb-2">
+                <a href="https://www.facebook.com/teo.matijasic" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/teomatijasic/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/T30M47" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+
+        <br>
+
+        <h4 class="mt-5 contact-title" style = "font-size: 26px; font-weight: bold;">Pošalji mi Email!</h4>
+        <form class="contact-form">
+            <div class="form-group">
+                <input type="text" class="form-control" id="name" placeholder="Ime">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="subject" placeholder="Subjekt">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" id="message" rows="4" placeholder="Sadržaj"></textarea>
+            </div>
+            <button type="submit" id = "btn-submit" class="btn btn-submit btn-block" disabled>Pošalji!</button>
+        </form>
+    </div>
+    <br>
+    <br>
+
+    <footer class="footer">
+        <div class="container d-flex flex-column align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <a href="contact.html" class="btn btn-custom mr-3 mt-3">Kontaktiraj me!</a>
+                <a href="cv.html" class="btn btn-custom ml-3">Moj životopis!</a>
+
+                <div class="d-flex justify-content-center social-icons">
+                    <a href="https://www.facebook.com/teo.matijasic" target="_blank"><i class="fab fa-facebook-f mr-3 mt-4"></i></a>
+                    <a href="https://www.instagram.com/teomatijasic/" target="_blank"><i class="fab fa-instagram mr-3 mt-4"></i></a>
+                    <a href="https://github.com/T30M47" target="_blank"><i class="fab fa-github mt-4"></i></a>
+                </div>
+            </div>
+        </div>
+        
+    </footer>
+
+    <script src="../javascript/contact_script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
