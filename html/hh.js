@@ -63,7 +63,7 @@ async function fetchAnalyticsData() {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        //'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(requestBody),
@@ -78,7 +78,7 @@ async function fetchAnalyticsData() {
       const data = await response.json();
       renderChart(data);
     }
-    
+
   } catch (err) {
     console.error("Greška u dohvaćanju podataka:", err);
   }
