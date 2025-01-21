@@ -18,7 +18,6 @@ function handleAuthClick() {
 
 // Funkcija za odgovor nakon autentifikacije
 function handleCredentialResponse(response) {
-  console.log("Token ID: ", response.credential);
   console.log("Authentication Response: ", response);
   const token = response.credential;
   localStorage.setItem("access_token", token); 
