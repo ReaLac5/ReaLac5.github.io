@@ -12,7 +12,7 @@ function handleCredentialResponse(response) {
   console.log(response);
   const credential = response.credential;
   if (credential) {
-    const token = credential; 
+    const token = credential;
     localStorage.setItem("access_token", token); 
     isAuthenticated = true;
     document.getElementById('chart').style.display = 'block';
