@@ -54,7 +54,7 @@ async function fetchAnalyticsData() {
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`;
 
   const requestBody = {
-    dimensions: [{ name: 'date' }],
+    dimensions: [{ name: 'date' }, { name: 'country' }],
     metrics: [{ name: 'activeUsers' }],
     dateRanges: [{ startDate: '7daysAgo', endDate: 'today' }]
   };
