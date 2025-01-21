@@ -51,7 +51,7 @@ async function fetchAnalyticsData() {
   }
 
   const propertyId = '474019939';  // Provjeri ispravan Property ID
-  const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport?access_token=${token}`;
+  const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`;
 
   const requestBody = {
     dimensions: [{ name: 'date' }, { name: 'country' }],
@@ -63,7 +63,7 @@ async function fetchAnalyticsData() {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        //'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(requestBody),
