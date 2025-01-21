@@ -9,11 +9,24 @@ let isAuthenticated = false;
 
 // Funkcija za autentifikaciju
 function handleAuthClick() {
-  google.accounts.id.initialize({
-    client_id: CLIENT_ID,
-    callback: handleCredentialResponse,
+  gapi.load('client:auth2', async () => {
+    await gapi.client.init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES,
+    });
+    
+    gapi.auth2.getAuthInstance().signIn().then(() => {
+      const token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
+      localStorage.setItem("access_token", token);
+      isAuthenticated = true;
+      document.getElementById('chart').style.display = 'block';
+      fetchAnalyticsData();
+    }).catch(err => {
+      console.error("Greška u prijavi:", err);
+    });
   });
-  google.accounts.id.prompt(); 
 }
 
 // Funkcija za odgovor nakon autentifikacije
