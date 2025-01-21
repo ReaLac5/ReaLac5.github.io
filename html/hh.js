@@ -7,13 +7,24 @@ const API_KEY = 'AIzaSyBdJdlS7a_e3oidJYrT9PfnAxPYtXri0UM';  // Zamijeni s tvojim
 const PROPERTY_ID = 'G-NZ2TV2NR0V';  // Zamijeni s tvojim Property ID-om
 let isAuthenticated = false;
 
-// Funkcija za autentifikaciju
+let tokenClient;
+
 function handleAuthClick() {
-  google.accounts.id.initialize({
+  tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
-    callback: handleCredentialResponse,
+    scope: SCOPES,
+    callback: (response) => {
+      if (response.access_token) {
+        localStorage.setItem('access_token', response.access_token);
+        fetchAnalyticsData(); // Pozovi dohvaćanje podataka nakon uspješne prijave
+      } else {
+        console.error("Autentifikacija nije uspjela.");
+      }
+    },
   });
-  google.accounts.id.prompt(); 
+
+  // Zatraži pristupni token od korisnika
+  tokenClient.requestAccessToken();
 }
 
 // Funkcija za odgovor nakon autentifikacije
@@ -37,38 +48,46 @@ function handleSignoutClick() {
 }
 
 // Funkcija za dohvaćanje podataka iz Google Analytics Data API v1
+// Funkcija za dohvaćanje podataka iz Google Analytics Data API v1
 async function fetchAnalyticsData() {
+  // Dohvati pristupni token iz lokalne pohrane
   const token = localStorage.getItem("access_token");
   if (!token) {
     console.error("Nema pristupnog tokena. Prijavite se ponovno.");
     return;
   }
 
+  // URL za Google Analytics Data API zahtjev
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${PROPERTY_ID}:runReport`;
+
+  // Tijelo zahtjeva s dimenzijama, metrima i vremenskim rasponom
   const requestBody = {
     dimensions: [{ name: 'date' }, { name: 'country' }],
     metrics: [{ name: 'activeUsers' }],
-    dateRanges: [{ startDate: '7daysAgo', endDate: 'today' }]
+    dateRanges: [{ startDate: '7daysAgo', endDate: 'today' }],
   };
 
   try {
+    // Pošalji POST zahtjev na API
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`, // Priloži pristupni token
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify(requestBody), // Pretvori tijelo zahtjeva u JSON format
     });
 
+    // Provjera statusa odgovora
     if (!response.ok) {
       const errorDetails = await response.json();
       console.error(`Greška u API pozivu: ${response.status} - ${errorDetails.error.message}`);
       return;
     }
 
+    // Obradi uspješan odgovor
     const data = await response.json();
-    renderChart(data);
+    renderChart(data); // Pošalji podatke funkciji za renderiranje grafikona
   } catch (err) {
     console.error("Greška u dohvaćanju podataka:", err);
   }
