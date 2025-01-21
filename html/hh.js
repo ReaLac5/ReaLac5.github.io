@@ -45,6 +45,7 @@ function handleSignoutClick() {
 // Dohvaćanje podataka iz Google Analytics API-a
 async function fetchAnalyticsData() {
   const token = localStorage.getItem("access_token");
+  console.log(token)
   if (!token) {
     console.error("Nema pristupnog tokena. Prijavite se ponovno.");
     return;
@@ -78,6 +79,11 @@ async function fetchAnalyticsData() {
 
 // Funkcija za renderiranje grafikona
 function renderChart(data) {
+  if (!data || !data.rows) {
+    console.error("Nema podataka za prikaz.");
+    return;
+  }
+
   const labels = data.rows.map(row => row[0]); 
   const chartData = {
     labels: labels,
