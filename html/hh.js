@@ -2,7 +2,7 @@ const CLIENT_ID = '1097344377477-00qph6q9jiin2muv6ntpsg9go98lqbfe.apps.googleuse
 const API_KEY = 'AIzaSyBdJdlS7a_e3oidJYrT9PfnAxPYtXri0UM';
 const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/analytics/v3/rest'];
 const SCOPES = 'https://www.googleapis.com/auth/analytics.readonly';
-const REDIRECT_URI = 'https://your-site-url.com/redirect-page';
+const REDIRECT_URI = 'https://realac5.github.io/html/chart.html';
 
 let isAuthenticated = false;
 let tokenClient;
