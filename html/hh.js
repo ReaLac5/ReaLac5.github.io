@@ -62,7 +62,7 @@ async function fetchAnalyticsData() {
   const today = new Date().toISOString().split('T')[0];
   // Tijelo zahtjeva s dimenzijama, metrima i vremenskim rasponom
   const requestBody = {
-    dimensions: [{ name: 'date' }, { name: 'country' }],
+    dimensions: [{ name: 'date' }],
     metrics: [{ name: 'activeUsers' }],
     dateRanges: [{ startDate: today, endDate: today }],
   };
@@ -87,6 +87,7 @@ async function fetchAnalyticsData() {
 
     // Obradi uspješan odgovor
     const data = await response.json();
+    console.log("API Response:", data);
     renderChart(data); // Pošalji podatke funkciji za renderiranje grafikona
   } catch (err) {
     console.error("Greška u dohvaćanju podataka:", err);
