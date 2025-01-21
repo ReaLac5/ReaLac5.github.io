@@ -1,8 +1,8 @@
-const CLIENT_ID = '214036241518-be5frrk0bus3h05oo3dt6b2t1j19onr3.apps.googleusercontent.com';
-    const API_KEY = 'AIzaSyAJugTkVuqv5BbYEPm9rr7U4mPSA5fvdmI';
+const CLIENT_ID = '1097344377477-00qph6q9jiin2muv6ntpsg9go98lqbfe.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyBdJdlS7a_e3oidJYrT9PfnAxPYtXri0UM';
     const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/analytics/v3/rest'];
     const SCOPES = 'https://www.googleapis.com/auth/analytics.readonly';
-    const REDIRECT_URI = 'https://eportfoliomatijasic.netlify.app/html/chart.html';
+    const REDIRECT_URI = 'https://realac5.github.io/html/chart.html';
 
     let isAuthenticated = false;
     let tokenClient;
