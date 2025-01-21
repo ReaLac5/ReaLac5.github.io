@@ -1,146 +1,18 @@
 <!DOCTYPE html>
-<html lang="hr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Google Analytics Chart</title>
-
-  <!-- Google API skripta (učitava se dinamički u JS) -->
-  <script src="https://apis.google.com/js/api.js"></script>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script> <!-- GIS Library -->
   <link rel="stylesheet" href="styles.css">
-  
-
-</head> 
+</head>
 <body>
-  <h1>Google Analytics Chart</h1>
+  <button onclick="handleAuthClick()">Prijavite se s Google računom</button>
+  <button onclick="handleSignoutClick()">Odjavite se</button>
+  <canvas id="chart"></canvas>
 
-  <!-- Gumbi za autentifikaciju -->
-  <button id="signin-button" onclick="handleAuthClick()" disabled>Prijavite se s Google računom</button>
-  <button id="signout-button" onclick="handleSignoutClick()" disabled>Odjavite se</button>
-
-  <!-- Platno za Chart.js grafikon -->
-  <canvas id="chart" style="display: none;"></canvas>
-
-  <script>
-    const CLIENT_ID = 'TVOJ_CLIENT_ID_HERE';
-const API_KEY = 'TVOJ_API_KEY_HERE';
-const DISCOVERY_DOCS = ['https://analyticsdata.googleapis.com/$discovery/rest?version=v1beta'];
-const SCOPES = 'https://www.googleapis.com/auth/analytics.readonly';
-
-let isAuthenticated = false;
-
-// Inicijalizacija Google API klijenta
-function initClient() {
-    gapi.load('client:auth2', () => {
-        gapi.client.init({
-            apiKey: API_KEY,
-            clientId: CLIENT_ID,
-            discoveryDocs: DISCOVERY_DOCS,
-            scope: SCOPES
-        }).then(() => {
-            console.log("Google API inicijaliziran.");
-        }).catch(error => console.error("Greška u inicijalizaciji Google API-ja:", error));
-    });
-}
-
-// Funkcija za prijavu
-function handleAuthClick() {
-    gapi.auth2.getAuthInstance().signIn().then(() => {
-        const token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
-        localStorage.setItem("access_token", token);
-        isAuthenticated = true;
-        fetchAnalyticsData();
-    }).catch(error => console.error("Greška u prijavi:", error));
-}
-
-// Funkcija za odjavu
-function handleSignoutClick() {
-    gapi.auth2.getAuthInstance().signOut().then(() => {
-        localStorage.removeItem("access_token");
-        isAuthenticated = false;
-        console.log("Korisnik je odjavljen.");
-    });
-}
-
-// Dohvaćanje podataka iz Google Analytics API-ja
-async function fetchAnalyticsData() {
-    const token = localStorage.getItem("access_token");
-    if (!token) {
-        console.error("Nema pristupnog tokena. Prijavite se ponovno.");
-        return;
-    }
-
-    const propertyId = '474019939'; // Zamijeni sa svojim GA Property ID-em
-    const url = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`;
-
-    const requestBody = {
-        dimensions: [{ name: 'date' }, { name: 'country' }],
-        metrics: [{ name: 'activeUsers' }],
-        dateRanges: [{ startDate: '7daysAgo', endDate: 'today' }]
-    };
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestBody),
-        });
-
-        if (!response.ok) {
-            const errorDetails = await response.json();
-            console.error(`Greška u API pozivu: ${response.status} - ${errorDetails.error.message}`);
-            return;
-        }
-
-        const data = await response.json();
-        renderChart(data);
-
-    } catch (err) {
-        console.error("Greška u dohvaćanju podataka:", err);
-    }
-}
-
-// Prikaz grafikona
-function renderChart(data) {
-    if (!data || !data.rows) {
-        console.error("Nema podataka za prikaz.");
-        return;
-    }
-
-    const labels = data.rows.map(row => row.dimensionValues[0].value);
-    const chartData = {
-        labels: labels,
-        datasets: [{
-            label: 'Active Users',
-            data: data.rows.map(row => row.metricValues[0].value),
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
-        }],
-    };
-
-    const ctx = document.getElementById('chart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: chartData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { position: 'top' },
-                title: { display: true, text: 'Google Analytics Data' },
-            },
-        },
-    });
-}
-
-// Pokretanje inicijalizacije API-ja nakon učitavanja stranice
-window.onload = initClient;
-
-  </script>
+  <script src="hh.js"></script>  <!-- Your JavaScript file -->
 </body>
 </html>
