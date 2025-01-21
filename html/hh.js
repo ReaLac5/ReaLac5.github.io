@@ -59,7 +59,7 @@ async function fetchAnalyticsData() {
 
   // URL za Google Analytics Data API zahtjev
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${PROPERTY_ID}:runReport`;
-
+  const today = new Date().toISOString().split('T')[0];
   // Tijelo zahtjeva s dimenzijama, metrima i vremenskim rasponom
   const requestBody = {
     dimensions: [{ name: 'date' }, { name: 'country' }],
