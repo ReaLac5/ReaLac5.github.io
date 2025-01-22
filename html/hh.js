@@ -18,7 +18,7 @@ function handleAuthClick() {
     client_id: CLIENT_ID,
     scope: SCOPES,
     callback: (response) => {
-      console.log("hh");
+      console.log(response.access_token);
       if (response.access_token) {
         isAuthenticated = True;
         localStorage.setItem('access_token', response.access_token);
