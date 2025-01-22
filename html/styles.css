@@ -10,8 +10,8 @@ button[onclick="handleSignoutClick()"] {
   /* Stil za platno Chart.js grafikona */
   #chart {
     display: none;
-    width: 400px;
-    height: 200px;
+    width: 200px;
+    height: 100px;
   }
 
   body {
