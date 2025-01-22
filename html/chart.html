@@ -13,7 +13,19 @@
 <body>
   <button onclick="handleAuthClick()">Prijavite se s Google računom</button>
   <button onclick="handleSignoutClick()">Odjavite se</button>
-  <canvas id="chart"></canvas>
+  <div class="chart-container">
+    <h2>Google Analytics Data</h2>
+    
+    <!-- Prvi grafikon: Aktivni korisnici -->
+    <div class="chart-wrapper">
+      <canvas id="chart_jj"></canvas>
+    </div>
+    
+    <!-- Drugi grafikon: Sesije -->
+    <div class="chart-wrapper">
+      <canvas id="chart_kk"></canvas>
+    </div>
+  </div>
 
   <script src="hh.js"></script>  <!-- Your JavaScript file -->
 </body>

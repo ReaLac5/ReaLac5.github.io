@@ -64,48 +64,79 @@ async function fetchAnalyticsData() {
   const requestBody = {
     dimensions: [{ name: 'date' }],
     metrics: [{ name: 'activeUsers' }],
+    dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+  };
+
+  const sessionsRequestBody = {
+    dimensions: [{ name: 'date' }],
+    metrics: [{ name: 'sessions' }],
     dateRanges: [{ startDate: "7daysAgo", endDate: today }],
   };
 
   try {
-    // Pošalji POST zahtjev na API
-    const response = await fetch(url, {
+    // Pošalji POST zahtjev za aktivne korisnike
+    const activeUsersResponse = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`, // Priloži pristupni token
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(requestBody), // Pretvori tijelo zahtjeva u JSON format
+      body: JSON.stringify(activeUsersRequestBody),
     });
 
     // Provjera statusa odgovora
-    if (!response.ok) {
-      const errorDetails = await response.json();
-      console.error(`Greška u API pozivu: ${response.status} - ${errorDetails.error.message}`);
+    if (!activeUsersResponse.ok) {
+      const errorDetails = await activeUsersResponse.json();
+      console.error(`Greška u API pozivu: ${activeUsersResponse.status} - ${errorDetails.error.message}`);
       return;
     }
 
-    // Obradi uspješan odgovor
-    const data = await response.json();
-    console.log("API Response:", data);
-    renderChart(data); // Pošalji podatke funkciji za renderiranje grafikona
+    // Obradi uspješan odgovor za aktivne korisnike
+    const activeUsersData = await activeUsersResponse.json();
+    
+    // Pošalji POST zahtjev za broj sesija
+    const sessionsResponse = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sessionsRequestBody),
+    });
+
+    if (!sessionsResponse.ok) {
+      const errorDetails = await sessionsResponse.json();
+      console.error(`Greška u API pozivu: ${sessionsResponse.status} - ${errorDetails.error.message}`);
+      return;
+    }
+
+    // Obradi uspješan odgovor za sesije
+    const sessionsData = await sessionsResponse.json();
+    console.log("API Response for Active Users:", activeUsersData);
+    console.log("API Response for Sessions:", sessionsData);
+
+    // Pozovi funkciju za renderiranje oba grafikona
+    renderCharts(activeUsersData, sessionsData);
+    
   } catch (err) {
     console.error("Greška u dohvaćanju podataka:", err);
   }
 }
 
 // Funkcija za renderiranje grafikona
-function renderChart(data) {
-  if (!data || !data.rows || data.rows.length === 0) {
+function renderCharts(activeUsersData, sessionsData) {
+  if (!activeUsersData || !activeUsersData.rows || activeUsersData.rows.length === 0 || !sessionsData || !sessionsData.rows || sessionsData.rows.length === 0) {
     alert("No data available for the selected date range.");
     console.error("No data available for display.");
     return;
   }
 
-  const labels = data.rows.map(row => row.dimensionValues[0].value);
-  const activeUsers = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
+  const labels = activeUsersData.rows.map(row => row.dimensionValues[0].value);
 
-  const chartData = {
+  const activeUsers = activeUsersData.rows.map(row => parseInt(row.metricValues[0].value, 10));
+  const sessions = sessionsData.rows.map(row => parseInt(row.metricValues[0].value, 10));
+
+  const activeUsersChartData = {
     labels: labels,
     datasets: [{
       label: 'Active Users',
@@ -116,19 +147,41 @@ function renderChart(data) {
     }],
   };
 
-  const canvas = document.getElementById('chart');
-  canvas.style.display = 'block'; // Prikazivanje elementa
-  const ctx = canvas.getContext('2d');
+  const sessionsChartData = {
+    labels: labels,
+    datasets: [{
+      label: 'Sessions',
+      data: sessions,
+      backgroundColor: 'rgba(153, 102, 255, 0.2)',
+      borderColor: 'rgba(153, 102, 255, 1)',
+      borderWidth: 1,
+    }],
+  };
 
-  //const ctx = document.getElementById('chart_jj').getContext('2d');
-  new Chart(ctx, {
+  // Prikazivanje prvog grafikona (aktivni korisnici)
+  const ctx1 = document.getElementById('chart_jj').getContext('2d');
+  new Chart(ctx1, {
     type: 'bar',
-    data: chartData,
+    data: activeUsersChartData,
     options: {
       responsive: true,
       plugins: {
         legend: { position: 'top' },
-        title: { display: true, text: 'Google Analytics Data' },
+        title: { display: true, text: 'Active Users Over Last 7 Days' },
+      },
+    },
+  });
+
+  // Prikazivanje drugog grafikona (sesije)
+  const ctx2 = document.getElementById('chart_kk').getContext('2d');
+  new Chart(ctx2, {
+    type: 'bar',
+    data: sessionsChartData,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'top' },
+        title: { display: true, text: 'Sessions Over Last 7 Days' },
       },
     },
   });
