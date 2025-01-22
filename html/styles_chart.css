@@ -43,9 +43,10 @@ button[onclick="handleSignoutClick()"] {
 }*/
 
 #chartContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  width: 100%;  /* Grafikon će zauzeti 100% širine roditeljskog elementa */
+  max-width: 100%;  /* Ograničava širenje izvan širine tijela */
+  overflow: hidden; /* Sprječava prelijevanje sadržaja izvan okvira */
+  margin: 0 auto; /* Centriraj grafikon na stranici */
   background-color: aliceblue;
 }
 
