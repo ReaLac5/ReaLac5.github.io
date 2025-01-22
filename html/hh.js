@@ -20,6 +20,7 @@ function handleAuthClick() {
     callback: (response) => {
       console.log(response.access_token);
       if (response.access_token) {
+        console.log("hh")
         isAuthenticated = True;
         localStorage.setItem('access_token', response.access_token);
         document.getElementById('signoutButton').style.display = 'block';
