@@ -332,7 +332,7 @@ function renderCharts(chartData) {
       data: {
         labels: labels,
         datasets: [{
-          label: `Active Users by ${key}`,
+          label: key === 'sessionDuration' ? 'Avg. Session Duration (seconds)' : `Active Users by ${key}`,
           data: values,
           backgroundColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
           borderColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`),
@@ -358,6 +358,8 @@ function renderCharts(chartData) {
 document.getElementById("controls").addEventListener("submit", (event) => {
   event.preventDefault();
   const dateRangeValue = document.getElementById("date-range").value;
+  const valueDiv = document.getElementById('value');
+  valueDiv.textContent = `Izabrani raspon: ${selectElement.value}`;
   fetchAnalyticsData(dateRangeValue);
 });
 
