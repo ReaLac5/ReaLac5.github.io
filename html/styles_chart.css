@@ -43,12 +43,12 @@ button[onclick="handleSignoutClick()"] {
   gap: 20px; /* Razmak između dva grafikona */
 }
 
-h2 {
+/*h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  width: 100%;  /* Širina naslova zauzima cijeli prostor */
+  width: 100%;
   text-align: center;
-}
+}*/
 
 /* Kontejner za pojedinačne grafikone */
 .chart-wrapper {
