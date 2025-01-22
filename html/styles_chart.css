@@ -1,7 +1,7 @@
 /* Sakrivanje tipke za odjavu prema zadanim postavkama */
-button[onclick="handleSignoutClick()"] {
+/*button[onclick="handleSignoutClick()"] {
     display: none;
-  }
+  }*/
   
 /*.chart-container {
   display: none;
