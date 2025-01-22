@@ -50,9 +50,9 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  display: flex;  /* Flexbox za horizontalno poravnavanje */
-  justify-content: space-between;  /* Razmak između grafikona */
-  gap: 20px;  /* Razmak između dva grafikona */
+  display: flex;
+  flex-direction: column; /* Vertikalni raspored (jedan ispod drugog) */
+  gap: 20px; /* Razmak između grafikona */
 }
 
 h2 {
@@ -65,14 +65,16 @@ h2 {
 /* Kontejner za pojedinačne grafikone */
 .chart-wrapper {
   display: flex;
-  flex: 1;  /* Svaki grafikon zauzima jednaku širinu */
   justify-content: center;
   align-items: center;
+  width: 100%;  /* Širina kontejnira grafikona */
+  max-width: 100%; /* Maksimalna širina */
 }
 
 /* Stiliziranje canvas elemenata */
 canvas {
   max-width: 100%;
   height: 400px;
-  width: 100% !important;
+  width: 100% !important; /* Osiguravanje da se grafikon prilagodi širini */
 }
+
