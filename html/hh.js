@@ -334,26 +334,3 @@ document.getElementById("controls").addEventListener("submit", (event) => {
   }
   fetchAnalyticsData(dateRangeValue);
 });
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  // Funkcija za dodavanje posjeta stranici u povijest
-  function updateUserHistory(pageName) {
-    let userHistory = JSON.parse(localStorage.getItem('userHistory')) || [];
-
-    // Dodavanje stranice u povijest (ako nije već prisutna)
-    if (!userHistory.includes(pageName)) {
-      userHistory.push(pageName);
-      localStorage.setItem('userHistory', JSON.stringify(userHistory));
-    }
-  }
-
-  // Praćenje posjeta određenim stranicama
-  updateUserHistory('/home');  // Kad korisnik posjeti stranicu "/home"
-  updateUserHistory('/products');  // Kad korisnik posjeti stranicu "/products"
-
-  // Dohvaćanje povijesti
-  let userHistory = JSON.parse(localStorage.getItem('userHistory') || '[]');
-  console.log(userHistory);  // Povijest posjeta korisnika
-});
-
