@@ -333,6 +333,28 @@ function renderCharts(chartData) {
 
 
 
+function updateDateRangeState() {
+  const dateRangeElement = document.getElementById("dateRange");
+
+  // Uvijek omogućiti odabir vremenskog raspona
+  dateRangeElement.disabled = false;
+
+  // Dodaj događaj za promjenu vremenskog raspona
+  dateRangeElement.addEventListener("change", (event) => {
+    const selectedRange = event.target.value;
+    const dateRange = getDateRange(selectedRange);
+    fetchAnalyticsData(dateRange); // Dohvati podatke za novi vremenski raspon
+  });
+
+  // Početno dohvaćanje podataka za zadani raspon (npr. Last 7 Days)
+  const defaultRange = "7daysAgo";
+  const dateRange = getDateRange(defaultRange);
+  fetchAnalyticsData(dateRange);
+}
+
+
+
+
 // Inicijalizacija nakon učitavanja stranice
 window.onload = function() {
   google.accounts.id.initialize({
@@ -340,24 +362,5 @@ window.onload = function() {
     callback: handleCredentialResponse,
   });
 
-  if (isAuthenticated) {
-    // Ako je korisnik prijavljen, omogućiti odabir vremenskog raspona
-    document.getElementById("dateRange").disabled = false;
-
-    // Dodaj događaj za promjenu vremenskog raspona
-    document.getElementById("dateRange").addEventListener("change", (event) => {
-      const selectedRange = event.target.value;
-      const dateRange = getDateRange(selectedRange);
-      fetchAnalyticsData(dateRange); // Dohvati podatke za novi vremenski raspon
-    });
-    
-    // Početno dohvaćanje podataka za zadani raspon (npr. Last 7 Days)
-    const defaultRange = "7daysAgo";
-    const dateRange = getDateRange(defaultRange);
-    fetchAnalyticsData(dateRange);
-  } else {
-    // Ako nije prijavljen, prikazati poruku ili sakriti odabir vremenskog raspona
-    document.getElementById("dateRange").disabled = true;
-    console.log("Korisnik nije prijavljen. Nemoguće odabrati vremenski raspon.");
-  }
+  updateDateRangeState();
 };
