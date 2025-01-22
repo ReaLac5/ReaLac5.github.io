@@ -34,6 +34,7 @@ function handleCredentialResponse(response) {
   localStorage.setItem("access_token", token); 
   isAuthenticated = true;
   document.getElementById('chart').style.display = 'block';
+  document.getElementById('signoutButton').style.display = 'block';
   fetchAnalyticsData();
 }
 
@@ -42,6 +43,7 @@ function handleSignoutClick() {
   google.accounts.oauth2.revoke(localStorage.getItem("access_token"), () => {
     isAuthenticated = false;
     document.getElementById('chart').style.display = 'none';
+    document.getElementById('signoutButton').style.display = 'none'; 
     console.log("User signed out.");
   });
   localStorage.removeItem("access_token");
