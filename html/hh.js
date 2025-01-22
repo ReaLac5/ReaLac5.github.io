@@ -337,6 +337,8 @@ function renderCharts(chartData) {
               weight: 'bold',
             },
             formatter: (value, context) => {
+              console.log("Labels: ", labels);
+              console.log("Values: ", values);
               const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
               const percentage = ((value / total) * 100).toFixed(2); // Postotak
               return `${percentage}%`; // Možeš zamijeniti s `value` za broj
