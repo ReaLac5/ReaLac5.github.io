@@ -29,17 +29,23 @@ button[onclick="handleSignoutClick()"] {
   cursor: pointer;
 }*/
 
-.chart-container {
+/*.chart-container {
   display: none;
-  width: 100%; /* Grafikoni zauzimaju cijelu širinu roditeljskog elementa */
-  max-width: 1200px; /* Maksimalna širina grafikona */
-  margin: 20px auto; /* Centriranje grafikona s automatskim razmakom */
+  width: 100%; /* Grafikoni zauzimaju cijelu širinu roditeljskog elementa 
+  max-width: 1200px; /* Maksimalna širina grafikona 
+  margin: 20px auto; /* Centriranje grafikona s automatskim razmakom 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column; /* Grafikoni jedan ispod drugog */
-  gap: 20px; /* Razmak između grafikona */
+  flex-direction: column; /* Grafikoni jedan ispod drugog 
+  gap: 20px; /* Razmak između grafikona 
+}*/
+
+#chartContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Stilizacija canvas elemenata */
