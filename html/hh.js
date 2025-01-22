@@ -360,9 +360,4 @@ window.onload = function() {
     client_id: CLIENT_ID,
     callback: handleCredentialResponse,
   });
-
-  google.accounts.id.renderButton(
-    document.getElementById("signoutButton"),
-    { theme: "outline", size: "large" }
-  );
 };
