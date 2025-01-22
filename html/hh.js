@@ -276,45 +276,6 @@ function renderCharts(chartData) {
 }
 
 
-async function fetchAnalyticsData() {
-  const url = 'https://analyticsdata.googleapis.com/v1beta/properties/{PROPERTY_ID}:runReport';
-  const token = 'YOUR_ACCESS_TOKEN'; // Zamijeni s pravim pristupnim tokenom
-  const requestBody = {
-    "dimensions": [
-      { "name": "pagePath" }  // Za dohvat stranica koje su korisnici posjetili
-    ],
-    "metrics": [
-      { "name": "screenPageViews" }  // Broj pregleda stranica
-    ],
-    "dateRanges": [
-      { "startDate": "2023-01-01", "endDate": "2023-12-31" }
-    ]
-  };
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(requestBody)
-  });
-
-  const data = await response.json();
-
-  if (response.ok) {
-    return data;
-  } else {
-    console.error('Error fetching data:', data);
-  }
-}
-
-fetchAnalyticsData().then(data => {
-  console.log(data); // Pokušaj dohvatiti podatke kako bi ih mogao obraditi
-});
-
-
-
 document.getElementById("controls").addEventListener("submit", (event) => {
   event.preventDefault();
   const dateRangeValue = document.getElementById("date-range").value;
