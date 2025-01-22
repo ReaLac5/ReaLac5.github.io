@@ -57,7 +57,7 @@ function handleSignoutClick() {
 }
 
 
-function getDateRange(value) {
+/*function getDateRange(value) {
   const today = new Date();
   const startDate = new Date();
 
@@ -78,7 +78,7 @@ function getDateRange(value) {
     default:
       return { startDate: "7daysAgo", endDate: "today" };
   }
-}
+}*/
 
 async function fetchAnalyticsData(dateRangeValue) {
   const token = localStorage.getItem("access_token");
@@ -87,39 +87,39 @@ async function fetchAnalyticsData(dateRangeValue) {
     return;
   }
 
-  const { startDate, endDate } = getDateRange(dateRangeValue);
+  //const { startDate, endDate } = getDateRange(dateRangeValue);
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${PROPERTY_ID}:runReport`;
 
   const requestBodies = {
     country: {
       dimensions: [{ name: 'country' }],
       metrics: [{ name: 'activeUsers' }],
-      dateRanges: [{ startDate, endDate }],
+      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
     browser: {
       dimensions: [{ name: 'browser' }],
       metrics: [{ name: 'activeUsers' }],
-      dateRanges: [{ startDate, endDate }],
+      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
     city: {
       dimensions: [{ name: 'city' }],
       metrics: [{ name: 'activeUsers' }],
-      dateRanges: [{ startDate, endDate }],
+      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
     deviceCategory: {
       dimensions: [{ name: 'deviceCategory' }],
       metrics: [{ name: 'activeUsers' }],
-      dateRanges: [{ startDate, endDate }],
+      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
     deviceModel: {
       dimensions: [{ name: 'deviceModel' }],
       metrics: [{ name: 'activeUsers' }],
-      dateRanges: [{ startDate, endDate }],
+      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
     operatingSystem: {
       dimensions: [{ name: 'operatingSystem' }],
       metrics: [{ name: 'activeUsers' }],
-      dateRanges: [{ startDate, endDate }],
+      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
   };
 
@@ -151,7 +151,7 @@ async function fetchAnalyticsData(dateRangeValue) {
 }
 
 
-async function fetchAnalyticsData(dateRange) {
+/*async function fetchAnalyticsData(dateRange) {
   const token = localStorage.getItem("access_token");
   if (!token) {
     console.error("Nema pristupnog tokena. Prijavite se ponovno.");
@@ -218,7 +218,7 @@ async function fetchAnalyticsData(dateRange) {
   } catch (err) {
     console.error("Greška u dohvaćanju podataka:", err);
   }
-}
+}*/
 
 // Funkcija za renderiranje grafikona
 /*function renderCharts(activeUsersData, sessionsData) {
