@@ -292,6 +292,7 @@ async function fetchAnalyticsData(dateRange) {
 function renderCharts(chartData) {
   const chartContainer = document.getElementById("chartContainer");
   chartContainer.style.display = "flex";
+  chartContainer.innerHTML = '';
 
   Object.entries(chartData).forEach(([key, data]) => {
     if (!data || !data.rows || data.rows.length === 0) {
@@ -302,9 +303,13 @@ function renderCharts(chartData) {
     const labels = data.rows.map(row => row.dimensionValues[0].value);
     const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
 
+    const chartWrapper = document.createElement("div");
+    chartWrapper.classList.add("chart-wrapper");
+
     const chartCanvas = document.createElement("canvas");
     chartCanvas.id = `chart_${key}`;
-    chartContainer.appendChild(chartCanvas);
+    chartWrapper.appendChild(chartCanvas); // Dodaj canvas u novi div
+    chartContainer.appendChild(chartWrapper);
 
     new Chart(chartCanvas.getContext('2d'), {
       type: 'doughnut', // Koristimo 'doughnut' za zanimljiviji prikaz

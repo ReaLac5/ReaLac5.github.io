@@ -56,3 +56,12 @@ canvas {
   max-width: 100%; /* Sprječava prelazak izvan roditeljskog elementa */
   height: 400px; /* Fiksna visina za svaki grafikon */
 }
+
+.chart-wrapper {
+  width: 100%;      /* Širina koja će zauzeti cijeli prostor */
+  max-width: 600px; /* Možeš ograničiti širinu */
+  margin: 20px;     /* Razmak između grafikona */
+  display: flex;
+  justify-content: center; /* Centriraj grafikon unutar wrappera */
+  align-items: center;
+}
