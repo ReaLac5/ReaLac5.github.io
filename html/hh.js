@@ -293,7 +293,7 @@ async function fetchAnalyticsData(dateRange) {
 function renderCharts(chartData) {
   const chartContainer = document.getElementById("chartContainer");
   chartContainer.style.display = "flex";
-  chartContainer.innerHTML = '';
+  //chartContainer.innerHTML = '';
 
   Object.entries(chartData).forEach(([key, data]) => {
     if (!data || !data.rows || data.rows.length === 0) {
