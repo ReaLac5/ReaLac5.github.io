@@ -116,7 +116,7 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
       metrics: [{ name: 'activeUsers' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
-    /*sessionDuration: { // Nova metrika za trajanje sesije
+    sessionDuration: { // Nova metrika za trajanje sesije
       metrics: [{ name: 'averageSessionDuration' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
@@ -124,7 +124,7 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
       dimensions: [{ name: 'pagePath' }],
       metrics: [{ name: 'screenPageViews' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
-    }*/
+    }
   };
 
   try {
@@ -322,7 +322,8 @@ function renderCharts(chartData) {
       data: {
         labels: labels,
         datasets: [{
-          label: `Active Users by ${key}`,
+          //label: `Active Users by ${key}`,
+          label: key === 'sessionDuration' ? 'Avg. Session Duration (seconds)' : `Active Users by ${key}`,
           data: values,
           backgroundColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
           borderColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`),
@@ -335,7 +336,8 @@ function renderCharts(chartData) {
         aspectRatio: 1,
         plugins: {
           legend: { position: 'top' },
-          title: { display: true, text: `Data for ${key}` },
+          //title: { display: true, text: `Data for ${key}` },
+          title: { display: true, text: key === 'sessionDuration' ? 'Average Session Duration' : `Data for ${key}` },
         },
         layout: {
           padding: 10 // Dodaj padding oko grafikona
@@ -351,7 +353,7 @@ document.getElementById("controls").addEventListener("submit", (event) => {
   const valueDiv = document.getElementById('value');
 
   if(dateRangeValue == "today"){
-    valueDiv.textContent = `Izabrani raspon: danas`;
+    valueDiv.textContent = `Izabrani raspon: Danas`;
   }
   else if(dateRangeValue == "7daysAgo"){
     valueDiv.textContent = `Izabrani raspon: Posljednjih 7 dana`;
