@@ -60,7 +60,7 @@
     <select id="date-range" required>
       <option value="today">Danas</option>
       <option value="7daysAgo">Posljednjih 7 dana</option>
-      <option value="30daysAgo">Prošli mjesec</option>
+      <option value="30daysAgo">Posljednih mjesec dana</option>
       <option value="90daysAgo">Posljednja 3 mjeseca</option>
     </select>
     <button type="submit" class="btn btn-outline-dark mb-3">Učitaj podatke</button>
@@ -69,6 +69,13 @@
   <div id="value" style="margin: auto; align-self: center; justify-self: center;"></div>
 
   <div id="chartContainer" style="display: none; margin-top: auto;"></div>
+
+
+  <div id="recommendations">
+    <h2>Preporučene stranice</h2>
+    <ul id="recommendations-list"></ul> <!-- Lista za prikaz preporuka -->
+  </div>
+
 
   <footer class="footer">
     <div class="container d-flex flex-column align-items-center justify-content-center">
@@ -84,6 +91,7 @@
     </div>
     </footer>
 
+    <script src="app.js"></script>
   <script src="hh.js"></script> <!-- Your JavaScript file -->
 </body>
 </html>
