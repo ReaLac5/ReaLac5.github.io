@@ -380,7 +380,7 @@ function renderCharts(chartData) {
 
     const types = ['bar', 'bar', 'doughnut', 'pie', 'bar'];
 
-    let currentChart = null;
+    const type = types[index % types.length];
 
     /*new Chart(chartCanvas.getContext('2d'), {
       type: 'doughnut', // Koristimo 'doughnut' za zanimljiviji prikaz
@@ -409,36 +409,30 @@ function renderCharts(chartData) {
         }
       },
     });*/
-    types.forEach((type, index) => {
-      if (currentChart) {
-        currentChart.destroy();
-      }
-
-      currentChart = new Chart(chartCanvas.getContext('2d'), {
-        type: type, // Dinamički postavljamo tip grafikona
-        data: {
-          labels: labels,
-          datasets: [{
-            label: `Active Users by ${key}`, // 'key' može biti varijabla koju definiraš
-            data: values,
-            backgroundColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
-            borderColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`),
-            borderWidth: 1,
-          }],
+    new Chart(chartCanvas.getContext('2d'), {
+      type: type, // Postavi tip grafikona
+      data: {
+        labels: labels,
+        datasets: [{
+          label: `Active Users by ${key}`, // Postavi labelu za grafikon
+          data: values,
+          backgroundColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
+          borderColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`),
+          borderWidth: 1,
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        aspectRatio: 1,
+        plugins: {
+          legend: { position: 'top' },
+          title: { display: true, text: `Podaci za ${key}` },
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          aspectRatio: 1,
-          plugins: {
-            legend: { position: 'top' },
-            title: { display: true, text: `Podaci za ${key}` },
-          },
-          layout: {
-            padding: 10 // Dodaj padding oko grafikona
-          }
-        },
-      });
+        layout: {
+          padding: 10 // Dodaj padding oko grafikona
+        }
+      },
     });
   });
 }
