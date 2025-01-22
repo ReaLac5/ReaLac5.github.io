@@ -350,9 +350,9 @@ document.getElementById("controls").addEventListener("submit", (event) => {
   const dateRangeValue = document.getElementById("date-range").value;
   const valueDiv = document.getElementById('value');
 
-  if(valueDiv){
+  //if(valueDiv){
     valueDiv.textContent = `Izabrani raspon: ${dateRangeValue}`;
-  }
+ //}
   fetchAnalyticsData(dateRangeValue);
 });
 
