@@ -7,11 +7,34 @@
   <meta name="google-signin-client_id" content="1097344377477-00qph6q9jiin2muv6ntpsg9go98lqbfe.apps.googleusercontent.com">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <script src="https://accounts.google.com/gsi/client" async defer></script> <!-- GIS Library -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="styles_chart.css">
 </head>
 <body>
-  <div class="chart-container">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="../index.html">
+        <img src="../images/logoLight.png" alt="Logo" class="navbar-logo img-fluid" id = "navbar-logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link active" href="aboutme.html">O meni</a></li>
+            <li class="nav-item"><a class="nav-link" href="projects.html">Projekti</a></li>
+            <li class="nav-item"><a class="nav-link" href="cv.html">CV</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Kontakt</a></li>
+            <li class="nav-item"><a class="nav-link" href="chart.html">Analitika</a></li>
+        </ul>
+    </div>
+  </nav>
+
+
+  <div class="button-container">
     <button onclick="handleAuthClick()">Prijavite se s Google računom</button>
     <button onclick="handleSignoutClick()">Odjavite se</button>
   </div>
@@ -29,6 +52,21 @@
       <canvas id="chart_kk"></canvas>
     </div>
   </div>
+
+  <footer class="footer">
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+        <div class="d-flex justify-content-center">
+            <a href="contact.html" class="btn btn-custom mr-3 mt-3">Kontaktiraj me!</a>
+            <a href="cv.html" class="btn btn-custom ml-3">Moj životopis!</a>
+
+            <div class="d-flex justify-content-center social-icons">
+                <a href="https://www.facebook.com/teo.matijasic" target="_blank"><i class="fab fa-facebook-f mr-3 mt-4"></i></a>
+                <a href="https://www.instagram.com/teomatijasic/" target="_blank"><i class="fab fa-instagram mr-3 mt-4"></i></a>
+                <a href="https://github.com/T30M47" target="_blank"><i class="fab fa-github mt-4"></i></a>
+            </div>
+        </div>
+    </div> 
+  </footer>
 
   <script src="hh.js"></script>  <!-- Your JavaScript file -->
 </body>
