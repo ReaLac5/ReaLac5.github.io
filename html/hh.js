@@ -350,9 +350,18 @@ document.getElementById("controls").addEventListener("submit", (event) => {
   const dateRangeValue = document.getElementById("date-range").value;
   const valueDiv = document.getElementById('value');
 
-  //if(valueDiv){
-    valueDiv.textContent = `Izabrani raspon: ${dateRangeValue}`;
- //}
+  if(dateRangeValue == "today"){
+    valueDiv.textContent = `Izabrani raspon: danas`;
+  }
+  else if(dateRangeValue == "7daysAgo"){
+    valueDiv.textContent = `Izabrani raspon: Posljednjih 7 dana`;
+  }
+  else if(dateRangeValue == "30daysAgo"){
+    valueDiv.textContent = `Izabrani raspon: Posljednih mjesec dana`;
+  }
+  else if(dateRangeValue == "90daysAgo"){
+    valueDiv.textContent = `Izabrani raspon: Posljednja 3 mjeseca`;
+  }
   fetchAnalyticsData(dateRangeValue);
 });
 
