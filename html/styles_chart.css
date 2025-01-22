@@ -16,23 +16,35 @@ button[onclick="handleSignoutClick()"] {
   gap: 20px; /* Razmak između grafikona 
 }*/
 
+/* Osiguraj da je body u pravoj širini i bez skrolanja u horizontalnom smjeru */
+body.page-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Sprečava horizontalno skrolanje */
+  box-sizing: border-box; /* Osigurava da padding i margin ne izlaze iz okvira */
+}
+
+/* chartContainer treba zauzimati 100% širine i biti unutar body-a */
 #chartContainer {
-  width: 100%; /* Postavlja širinu na 100% širine parent elementa */
-  max-width: 100%; /* Maksimalna širina kontejnera na 100% */
-  height: 400px; /* Ovdje možeš prilagoditi visinu */
-  overflow: auto; /* Dodaje mogućnost skrolanja ako je sadržaj prevelik */
+  width: 100%; /* Osiguraj da kontejner zauzima 100% širine roditelja (body) */
+  max-width: 100%; /* Ovdje se osigurava da ne izlazi izvan roditeljskog kontejnera */
+  margin: 0 auto; /* Centriranje ako je potrebno */
   display: flex;
-  flex-wrap: wrap; /* Omogućuje wrapanje sadržaja unutar kontejnera */
-  background-color: aliceblue;
+  flex-wrap: wrap; /* Omogućava wrapanje za sadržaj */
+  box-sizing: border-box; /* Pomoć u izračunu širine s paddingom */
 }
 
-/* Stilizacija canvas elemenata */
-canvas {
-  width: 100% !important; /* Postavlja širinu kanvasa na 100% širine wrappera */
-  height: auto !important; /* Visina se automatski prilagođava */
-}
-
+/* Prilagodba za chart-wrapper */
 .chart-wrapper {
-  flex: 1 1 45%; /* Grafikoni zauzimaju 45% širine, prilagodljivo za manje ekrane */
+  width: 45%; /* Grafikoni će zauzimati do 45% širine, prilagodljivo */
   margin: 10px; /* Razmak između grafikona */
+  box-sizing: border-box; /* Sprječava da margin ulazi u širinu */
+}
+
+/* Prilagodba za canvas elemente */
+canvas {
+  width: 100% !important; /* Širina kanvasa postavljena na 100% */
+  height: auto !important; /* Visina se automatski prilagođava */
+  max-height: 400px; /* Visina može biti ograničena prema želji */
 }
