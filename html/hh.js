@@ -80,7 +80,7 @@ function handleSignoutClick() {
   }
 }*/
 
-async function fetchAnalyticsData(dateRangeValue) {
+async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
   
   const token = localStorage.getItem("access_token");
   if (!token) {
