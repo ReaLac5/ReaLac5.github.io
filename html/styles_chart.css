@@ -16,6 +16,10 @@
   gap: 20px; /* Razmak između grafikona 
 }*/
 
+#signoutButton {
+  display: none !important;
+}
+
 /* Osiguraj da je body u pravoj širini i bez skrolanja u horizontalnom smjeru */
 body.page-container {
   margin: 0;
