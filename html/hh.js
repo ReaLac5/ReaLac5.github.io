@@ -80,7 +80,7 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
 
   const requestBody_session = {
     metrics: [{ name: 'averageSessionDuration' }],
-    dateRanges: [{ startDate: dateRangeValue, endDate: '2023-12-31' }],
+    dateRanges: [{ startDate: dateRangeValue, endDate: 'today' }],
   };
 
   const requestBodies_topPages = {
