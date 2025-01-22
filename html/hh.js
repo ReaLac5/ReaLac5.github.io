@@ -18,9 +18,9 @@ function handleAuthClick() {
     client_id: CLIENT_ID,
     scope: SCOPES,
     callback: (response) => {
+      console.log("hh");
       if (response.access_token) {
         isAuthenticated = True;
-        console.log("hh");
         localStorage.setItem('access_token', response.access_token);
         document.getElementById('signoutButton').style.display = 'block';
         document.getElementById('header').style.display = 'block';
