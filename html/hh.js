@@ -75,6 +75,11 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
       dimensions: [{ name: 'deviceCategory' }],
       metrics: [{ name: 'activeUsers' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
+    },
+    topPages: {
+      dimensions: [{ name: 'pagePath' }],
+      metrics: [{ name: 'screenPageViews' }],
+      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     }
   };
 
