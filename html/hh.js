@@ -316,8 +316,11 @@ function renderCharts(chartData) {
       return;
     }
 
-    const labels = data.rows.map(row => row.dimensionValues[0].value);
-    const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
+    //const labels = data.rows.map(row => row.dimensionValues[0].value);
+    //const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
+
+    const labels = data.rows.map(row => row.dimensionValues[0]?.value || "Nepoznato");
+    const values = data.rows.map(row => parseInt(row.metricValues[0]?.value || "0", 10));
 
     const chartWrapper = document.createElement("div");
     chartWrapper.classList.add("chart-wrapper");
