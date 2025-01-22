@@ -351,7 +351,7 @@ document.getElementById("controls").addEventListener("submit", (event) => {
   const valueDiv = document.getElementById('value');
 
   if(valueDiv){
-    valueDiv.textContent = `Izabrani raspon: ${selectElement.value}`;
+    valueDiv.textContent = `Izabrani raspon: ${dateRangeValue}`;
   }
   fetchAnalyticsData(dateRangeValue);
 });
