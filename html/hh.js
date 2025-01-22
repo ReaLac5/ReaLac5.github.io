@@ -178,7 +178,6 @@ async function renderCharts_session(response) {
   try {
     // Parsiraj JSON odgovor s podacima
     const data = await response.json();
-    console.log(data);
 
     // Priprema podataka za graf
     const chartData = {
@@ -369,7 +368,6 @@ function renderCharts(chartData) {
     }
 
     const labels = data.rows.map(row => row.dimensionValues[0].value);
-    console.log(labels);
     const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
 
     const chartWrapper = document.createElement("div");
