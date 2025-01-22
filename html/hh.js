@@ -36,6 +36,7 @@ function handleCredentialResponse(response) {
   document.getElementById('chart').style.display = 'block';
   document.getElementById('signoutButton').style.display = 'block';
   document.getElementById('header').style.display = 'block';
+  document.getElementById('controls').style.display = 'block';
   fetchAnalyticsData();
 }
 
@@ -293,7 +294,7 @@ async function fetchAnalyticsData(dateRange) {
 function renderCharts(chartData) {
   const chartContainer = document.getElementById("chartContainer");
   chartContainer.style.display = "flex";
-  //chartContainer.innerHTML = '';
+  chartContainer.innerHTML = '';
 
   Object.entries(chartData).forEach(([key, data]) => {
     if (!data || !data.rows || data.rows.length === 0) {
@@ -329,6 +330,18 @@ function renderCharts(chartData) {
         maintainAspectRatio: false,
         aspectRatio: 1,
         plugins: {
+          datalabels: {
+            display: true,
+            color: 'white', // Boja brojeva
+            font: {
+              weight: 'bold',
+            },
+            formatter: (value, context) => {
+              const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
+              const percentage = ((value / total) * 100).toFixed(2); // Postotak
+              return `${percentage}%`; // Možeš zamijeniti s `value` za broj
+            },
+          },
           legend: { position: 'top' },
           title: { display: true, text: `Active Users by ${key}` },
         },
