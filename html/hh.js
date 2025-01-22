@@ -75,15 +75,6 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
       dimensions: [{ name: 'deviceCategory' }],
       metrics: [{ name: 'activeUsers' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
-    },
-    sessionDuration: { // Nova metrika za trajanje sesije
-      metrics: [{ name: 'averageSessionDuration' }],
-      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
-    },
-    topPages: { // Nova metrika za najposjećenije stranice
-      dimensions: [{ name: 'pagePath' }],
-      metrics: [{ name: 'screenPageViews' }],
-      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     }
   };
 
