@@ -9,9 +9,9 @@ let isAuthenticated = false;
 
 let tokenClient;
 
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('controls').style.display = 'block';
-});
+});*/
 
 function handleAuthClick() {
   tokenClient = google.accounts.oauth2.initTokenClient({
