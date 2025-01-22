@@ -134,7 +134,7 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
       dimensions: [{ name: 'pagePath' }],
       metrics: [{ name: 'screenPageViews' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
-    },
+    }
   };
 
   try {
