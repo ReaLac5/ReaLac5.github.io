@@ -80,7 +80,7 @@ function handleSignoutClick() {
   }
 }*/
 
-async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
+async function fetchAnalyticsData(dateRangeValue) {
   
   const token = localStorage.getItem("access_token");
   if (!token) {
@@ -349,6 +349,9 @@ function renderCharts(chartData) {
 document.getElementById("controls").addEventListener("submit", (event) => {
   event.preventDefault();
   const dateRangeValue = document.getElementById("date-range").value;
+  if (!dateRangeSelect.value) {
+    dateRangeSelect.value = "7daysAgo";
+  }
   fetchAnalyticsData(dateRangeValue);
 });
 
