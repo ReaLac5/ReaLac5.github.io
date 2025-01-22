@@ -378,7 +378,7 @@ function renderCharts(chartData) {
     chartWrapper.appendChild(chartCanvas); // Dodaj canvas u novi div
     chartContainer.appendChild(chartWrapper);
 
-    const types = ['map', 'bar', 'doughnut', 'pie', 'bar']
+    const types = ['bar', 'bar', 'doughnut', 'pie', 'bar']
 
     /*new Chart(chartCanvas.getContext('2d'), {
       type: 'doughnut', // Koristimo 'doughnut' za zanimljiviji prikaz
