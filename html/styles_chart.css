@@ -21,7 +21,6 @@ body.page-container {
   margin: 0;
   padding: 0;
   width: 100%;
-  align-items: center;
   overflow-x: hidden; /* Sprečava horizontalno skrolanje */
   box-sizing: border-box; /* Osigurava da padding i margin ne izlaze iz okvira */
 }
@@ -35,6 +34,7 @@ body.page-container {
   flex-wrap: wrap; /* Omogućava wrapanje za sadržaj */
   box-sizing: border-box; /* Pomoć u izračunu širine s paddingom */
   background-color: aliceblue;
+  justify-content: center;
 }
 
 /* Prilagodba za chart-wrapper */
