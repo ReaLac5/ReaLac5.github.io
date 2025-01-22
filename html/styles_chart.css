@@ -30,6 +30,7 @@ button[onclick="handleSignoutClick()"] {
 }*/
 
 .chart-container {
+  display: none;
   width: 100%; /* Grafikoni zauzimaju cijelu širinu roditeljskog elementa */
   max-width: 1200px; /* Maksimalna širina grafikona */
   margin: 20px auto; /* Centriranje grafikona s automatskim razmakom */

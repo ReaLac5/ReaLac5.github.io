@@ -47,9 +47,33 @@ function handleSignoutClick() {
   localStorage.removeItem("access_token");
 }
 
+
+function getDateRange(value) {
+  const today = new Date();
+  const startDate = new Date();
+
+  switch (value) {
+    case "today":
+      return { startDate: today.toISOString().split("T")[0], endDate: today.toISOString().split("T")[0] };
+    case "7daysAgo":
+      startDate.setDate(today.getDate() - 7);
+      return { startDate: startDate.toISOString().split("T")[0], endDate: today.toISOString().split("T")[0] };
+    case "lastMonth":
+      startDate.setMonth(today.getMonth() - 1);
+      startDate.setDate(1);
+      const endOfLastMonth = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
+      return { startDate: startDate.toISOString().split("T")[0], endDate: endOfLastMonth.toISOString().split("T")[0] };
+    case "3monthsAgo":
+      startDate.setMonth(today.getMonth() - 3);
+      return { startDate: startDate.toISOString().split("T")[0], endDate: today.toISOString().split("T")[0] };
+    default:
+      return { startDate: "7daysAgo", endDate: "today" };
+  }
+}
+
 // Funkcija za dohvaćanje podataka iz Google Analytics Data API v1
 // Funkcija za dohvaćanje podataka iz Google Analytics Data API v1
-async function fetchAnalyticsData() {
+/*async function fetchAnalyticsData() {
   // Dohvati pristupni token iz lokalne pohrane
   const token = localStorage.getItem("access_token");
   if (!token) {
@@ -121,10 +145,79 @@ async function fetchAnalyticsData() {
   } catch (err) {
     console.error("Greška u dohvaćanju podataka:", err);
   }
+}*/
+
+async function fetchAnalyticsData(dateRange) {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    console.error("Nema pristupnog tokena. Prijavite se ponovno.");
+    return;
+  }
+
+  const url = `https://analyticsdata.googleapis.com/v1beta/properties/${PROPERTY_ID}:runReport`;
+
+  const requestBodies = {
+    country: {
+      dimensions: [{ name: 'country' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+    },
+    browser: {
+      dimensions: [{ name: 'browser' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+    },
+    city: {
+      dimensions: [{ name: 'city' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+    },
+    deviceCategory: {
+      dimensions: [{ name: 'deviceCategory' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+    },
+    deviceModel: {
+      dimensions: [{ name: 'deviceModel' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+    },
+    operatingSystem: {
+      dimensions: [{ name: 'operatingSystem' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
+    },
+  };
+
+  try {
+    const responses = await Promise.all(
+      Object.entries(requestBodies).map(async ([key, body]) => {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        });
+        if (!response.ok) {
+          const errorDetails = await response.json();
+          throw new Error(`${key} API Error: ${errorDetails.error.message}`);
+        }
+        return { key, data: await response.json() };
+      })
+    );
+
+    const chartData = Object.fromEntries(responses.map(({ key, data }) => [key, data]));
+    renderCharts(chartData);
+
+  } catch (err) {
+    console.error("Greška u dohvaćanju podataka:", err);
+  }
 }
 
 // Funkcija za renderiranje grafikona
-function renderCharts(activeUsersData, sessionsData) {
+/*function renderCharts(activeUsersData, sessionsData) {
   if (!activeUsersData || !activeUsersData.rows || activeUsersData.rows.length === 0 || !sessionsData || !sessionsData.rows || sessionsData.rows.length === 0) {
     alert("No data available for the selected date range.");
     console.error("No data available for display.");
@@ -158,6 +251,9 @@ function renderCharts(activeUsersData, sessionsData) {
     }],
   };
 
+  const chartContainer = document.getElementById("chartContainer");
+  chartContainer.style.display = "flex";
+
   // Prikazivanje prvog grafikona (aktivni korisnici)
   const ctx1 = document.getElementById('chart_jj').getContext('2d');
   new Chart(ctx1, {
@@ -185,7 +281,54 @@ function renderCharts(activeUsersData, sessionsData) {
       },
     },
   });
+}*/
+
+
+
+
+
+function renderCharts(chartData) {
+  const chartContainer = document.getElementById("chartContainer");
+  chartContainer.style.display = "flex";
+
+  Object.entries(chartData).forEach(([key, data]) => {
+    if (!data || !data.rows || data.rows.length === 0) {
+      console.warn(`Nema podataka za ${key}`);
+      return;
+    }
+
+    const labels = data.rows.map(row => row.dimensionValues[0].value);
+    const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
+
+    const chartCanvas = document.createElement("canvas");
+    chartCanvas.id = `chart_${key}`;
+    chartContainer.appendChild(chartCanvas);
+
+    new Chart(chartCanvas.getContext('2d'), {
+      type: 'doughnut', // Koristimo 'doughnut' za zanimljiviji prikaz
+      data: {
+        labels: labels,
+        datasets: [{
+          label: `Active Users by ${key}`,
+          data: values,
+          backgroundColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
+          borderColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`),
+          borderWidth: 1,
+        }],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'top' },
+          title: { display: true, text: `Active Users by ${key}` },
+        },
+      },
+    });
+  });
 }
+
+
+
 
 
 // Inicijalizacija nakon učitavanja stranice

@@ -44,6 +44,17 @@
     <h2>Google Analytics Podaci</h2>
   </header>
 
+  <div id="controls">
+    <label for="dateRange">Select Date Range:</label>
+    <select id="dateRange">
+      <option value="today">Today</option>
+      <option value="7daysAgo">Last 7 Days</option>
+      <option value="lastMonth">Last Month</option>
+      <option value="3monthsAgo">Last 3 Months</option>
+    </select>
+  </div>
+  <div id="chartContainer" style="display: none;"></div>
+
   <div class="chart-container">
     <div class="chart-wrapper">
       <canvas id="chart_jj"></canvas>
