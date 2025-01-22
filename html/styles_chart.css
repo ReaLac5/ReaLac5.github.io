@@ -21,6 +21,7 @@ body.page-container {
   margin: 0;
   padding: 0;
   width: 100%;
+  align-items: center;
   overflow-x: hidden; /* Sprečava horizontalno skrolanje */
   box-sizing: border-box; /* Osigurava da padding i margin ne izlaze iz okvira */
 }
@@ -33,11 +34,12 @@ body.page-container {
   display: flex;
   flex-wrap: wrap; /* Omogućava wrapanje za sadržaj */
   box-sizing: border-box; /* Pomoć u izračunu širine s paddingom */
+  background-color: aliceblue;
 }
 
 /* Prilagodba za chart-wrapper */
 .chart-wrapper {
-  width: 45%; /* Grafikoni će zauzimati do 45% širine, prilagodljivo */
+  width: 25%; /* Grafikoni će zauzimati do 45% širine, prilagodljivo */
   margin: 10px; /* Razmak između grafikona */
   box-sizing: border-box; /* Sprječava da margin ulazi u širinu */
 }
