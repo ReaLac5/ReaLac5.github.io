@@ -337,7 +337,7 @@ function renderCharts(chartData) {
         plugins: {
           legend: { position: 'top' },
           //title: { display: true, text: `Data for ${key}` },
-          title: { display: true, text: key === 'sessionDuration' ? 'Average Session Duration' : `Data for ${key}` },
+          title: { display: true, text: key === 'sessionDuration' ? 'Average Session Duration' : `Podaci za ${key}` },
         },
         layout: {
           padding: 10 // Dodaj padding oko grafikona
