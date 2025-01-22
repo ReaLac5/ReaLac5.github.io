@@ -5,13 +5,8 @@ const SCOPES = 'https://www.googleapis.com/auth/analytics.readonly';
 const CLIENT_ID = '1097344377477-00qph6q9jiin2muv6ntpsg9go98lqbfe.apps.googleusercontent.com';  // Zamijeni s tvojim Client ID-om
 const API_KEY = 'AIzaSyBdJdlS7a_e3oidJYrT9PfnAxPYtXri0UM';  // Zamijeni s tvojim API Key-om
 const PROPERTY_ID = '474019939';  // Zamijeni s tvojim Property ID-om
-let isAuthenticated = false;
 
 let tokenClient;
-
-/*document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('controls').style.display = 'block';
-});*/
 
 function handleAuthClick() {
   tokenClient = google.accounts.oauth2.initTokenClient({
@@ -31,18 +26,6 @@ function handleAuthClick() {
   tokenClient.requestAccessToken();
 }
 
-// Funkcija za odgovor nakon autentifikacije
-/*function handleCredentialResponse(response) {
-  console.log("Authentication Response: ", response);
-  const token = response.credential;
-  localStorage.setItem("access_token", token); 
-  isAuthenticated = true;
-  document.getElementById('chart').style.display = 'block';
-  document.getElementById('signoutButton').style.display = 'block';
-  document.getElementById('header').style.display = 'block';
-  fetchAnalyticsData();
-}*/
-
 // Funkcija za odjavu
 function handleSignoutClick() {
   google.accounts.oauth2.revoke(localStorage.getItem("access_token"), () => {
@@ -56,29 +39,6 @@ function handleSignoutClick() {
   localStorage.removeItem("access_token");
 }
 
-
-/*function getDateRange(value) {
-  const today = new Date();
-  const startDate = new Date();
-
-  switch (value) {
-    case "today":
-      return { startDate: today.toISOString().split("T")[0], endDate: today.toISOString().split("T")[0] };
-    case "7daysAgo":
-      startDate.setDate(today.getDate() - 7);
-      return { startDate: startDate.toISOString().split("T")[0], endDate: today.toISOString().split("T")[0] };
-    case "lastMonth":
-      startDate.setMonth(today.getMonth() - 1);
-      startDate.setDate(1);
-      const endOfLastMonth = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
-      return { startDate: startDate.toISOString().split("T")[0], endDate: endOfLastMonth.toISOString().split("T")[0] };
-    case "3monthsAgo":
-      startDate.setMonth(today.getMonth() - 3);
-      return { startDate: startDate.toISOString().split("T")[0], endDate: today.toISOString().split("T")[0] };
-    default:
-      return { startDate: "7daysAgo", endDate: "today" };
-  }
-}*/
 
 async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
   
@@ -127,6 +87,17 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
     }
   };
 
+  const requestBody_session = {
+    metrics: [{ name: 'averageSessionDuration' }],
+    dateRanges: [{ startDate: dateRangeValue, endDate: '2023-12-31' }],
+  };
+
+  const requestBodies_topPages = {
+      dimensions: [{ name: 'pagePath' }],
+      metrics: [{ name: 'screenPageViews' }],
+      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
+  };
+
   try {
     const responses = await Promise.all(
       Object.entries(requestBodies).map(async ([key, body]) => {
@@ -147,13 +118,108 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
     );
 
     const chartData = Object.fromEntries(responses.map(({ key, data }) => [key, data]));
-    console.log(charData);
     renderCharts(chartData);
+
+
+    const responses_session = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody_session),
+      });
+  
+    if (!responses_session.ok) {
+      const errorDetails = await responses_session.json();
+      throw new Error(`API Error: ${errorDetails.error.message}`);
+    }
+
+    renderCharts_session(responses_session);
+
+
+    /*const responses_topPages = await Promise.all(
+      Object.entries(requestBodies_topPages).map(async ([key, body]) => {
+        const responses_topPages = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        });
+        if (!responses_topPages.ok) {
+          const errorDetails = await responses_topPages.json();
+          throw new Error(`${key} API Error: ${errorDetails.error.message}`);
+        }
+        return { key, data: await responses_topPages.json() };
+      })
+    );
+
+    const chartData_topPages = Object.fromEntries(responses_topPages.map(({ key, data }) => [key, data]));
+    renderCharts_topPages(chartData_topPages);*/
+
 
   } catch (err) {
     console.error("Greška u dohvaćanju podataka:", err);
   }
 }
+
+
+
+async function renderCharts_session(response) {
+    const chartContainer = document.getElementById("chartContainer");
+    chartContainer.style.display = "flex";
+
+    const chartWrapper = document.createElement("div");
+    chartWrapper.classList.add("chart-wrapper");
+
+    const chartCanvas = document.createElement("canvas");
+    chartCanvas.id = `chart_session`;
+    chartWrapper.appendChild(chartCanvas); // Dodaj canvas u novi div
+    chartContainer.appendChild(chartWrapper);
+
+  try {
+    // Parsiraj JSON odgovor s podacima
+    const data = await response.json();
+    console.log(data);
+
+    // Priprema podataka za graf
+    const chartData = {
+      labels: ['Session Duration'], // Jedan naziv, jer imamo samo jedan redak podataka
+      datasets: [
+        {
+          label: 'Average Session Duration (seconds)',
+          data: [parseFloat(data.rows[0].metricValues[0].value)], // Vrijednost trajanja sesije u sekundama
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          fill: true,
+        },
+      ],
+    };
+
+    new Chart(chartCanvas.getContext('2d'), {
+      type: 'bar', // Tip grafa: koristi bar jer imamo samo jednu metriku
+      data: chartData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+          },
+        },
+      },
+    });
+
+  } catch (error) {
+    console.error('Greška u renderiranju grafa:', error);
+  }
+}
+
 
 
 /*async function fetchAnalyticsData(dateRange) {
@@ -295,7 +361,6 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
 
 
 
-
 function renderCharts(chartData) {
   const chartContainer = document.getElementById("chartContainer");
   chartContainer.style.display = "flex";
@@ -311,16 +376,6 @@ function renderCharts(chartData) {
     console.log(labels);
     const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
 
-    if (key === 'sessionDuration') {
-      values = values.map(value => parseFloat(value).toFixed(2));  // Formatiraj u sekunde
-    }
-
-    // Specifična obrada za topPages
-    if (key === 'topPages') {
-      // Pronađi top stranice s najviše pregleda
-      values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
-    }
-
     const chartWrapper = document.createElement("div");
     chartWrapper.classList.add("chart-wrapper");
 
@@ -334,8 +389,8 @@ function renderCharts(chartData) {
       data: {
         labels: labels,
         datasets: [{
-          //label: `Active Users by ${key}`,
-          label: key === 'sessionDuration' ? 'Avg. Session Duration (seconds)' : `Active Users by ${key}`,
+          label: `Active Users by ${key}`,
+          //label: key === 'sessionDuration' ? 'Avg. Session Duration (seconds)' : `Active Users by ${key}`,
           data: values,
           backgroundColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
           borderColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`),
@@ -348,8 +403,8 @@ function renderCharts(chartData) {
         aspectRatio: 1,
         plugins: {
           legend: { position: 'top' },
-          //title: { display: true, text: `Data for ${key}` },
-          title: { display: true, text: key === 'sessionDuration' ? 'Average Session Duration' : `Podaci za ${key}` },
+          title: { display: true, text: `Data for ${key}` },
+          //title: { display: true, text: key === 'sessionDuration' ? 'Average Session Duration' : `Podaci za ${key}` },
         },
         layout: {
           padding: 10 // Dodaj padding oko grafikona
@@ -378,12 +433,3 @@ document.getElementById("controls").addEventListener("submit", (event) => {
   }
   fetchAnalyticsData(dateRangeValue);
 });
-
-
-// Inicijalizacija nakon učitavanja stranice
-/*window.onload = function() {
-  google.accounts.id.initialize({
-    client_id: CLIENT_ID,
-    callback: handleCredentialResponse,
-  });
-};*/
