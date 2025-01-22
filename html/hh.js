@@ -126,7 +126,7 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
       metrics: [{ name: 'activeUsers' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
-    sessionDuration: { // Nova metrika za trajanje sesije
+    /*sessionDuration: { // Nova metrika za trajanje sesije
       metrics: [{ name: 'averageSessionDuration' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
@@ -134,7 +134,7 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
       dimensions: [{ name: 'pagePath' }],
       metrics: [{ name: 'screenPageViews' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
-    }
+    }*/
   };
 
   try {
@@ -316,11 +316,8 @@ function renderCharts(chartData) {
       return;
     }
 
-    //const labels = data.rows.map(row => row.dimensionValues[0].value);
-    //const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
-
-    const labels = data.rows.map(row => row.dimensionValues[0]?.value || "Nepoznato");
-    const values = data.rows.map(row => parseInt(row.metricValues[0]?.value || "0", 10));
+    const labels = data.rows.map(row => row.dimensionValues[0].value);
+    const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
 
     const chartWrapper = document.createElement("div");
     chartWrapper.classList.add("chart-wrapper");
@@ -335,7 +332,7 @@ function renderCharts(chartData) {
       data: {
         labels: labels,
         datasets: [{
-          label: key === 'sessionDuration' ? 'Avg. Session Duration (seconds)' : `Active Users by ${key}`,
+          label: `Active Users by ${key}`,
           data: values,
           backgroundColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
           borderColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`),
@@ -348,7 +345,7 @@ function renderCharts(chartData) {
         aspectRatio: 1,
         plugins: {
           legend: { position: 'top' },
-          title: { display: true, text: key === 'sessionDuration' ? 'Average Session Duration' : `Data for ${key}` },
+          title: { display: true, text: `Data for ${key}` },
         },
         layout: {
           padding: 10 // Dodaj padding oko grafikona
@@ -362,7 +359,9 @@ document.getElementById("controls").addEventListener("submit", (event) => {
   event.preventDefault();
   const dateRangeValue = document.getElementById("date-range").value;
   const valueDiv = document.getElementById('value');
+
   valueDiv.textContent = `Izabrani raspon: ${selectElement.value}`;
+
   fetchAnalyticsData(dateRangeValue);
 });
 
