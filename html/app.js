@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
 const cheerio = require('cheerio');
 const natural = require('natural');
 const TfIdf = natural.TfIdf;

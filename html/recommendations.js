@@ -1,14 +1,13 @@
-const natural = require('natural');
-const fs = require('fs');
+const natural = window.natural;  // Učitavamo natural.js s CDN-a
 const TfIdf = natural.TfIdf;
 
-// Funkcija za dohvaćanje podataka iz spremljene datoteke
+// Funkcija za dohvaćanje podataka iz localStorage-a
 function loadScrapedData() {
   try {
-    const data = fs.readFileSync('scrapedData.json');
-    return JSON.parse(data);
+    const data = localStorage.getItem('scrapedData');
+    return data ? JSON.parse(data) : {};
   } catch (error) {
-    console.error('Greška pri učitavanju podataka iz datoteke:', error);
+    console.error('Greška pri učitavanju podataka:', error);
     return {};
   }
 }
