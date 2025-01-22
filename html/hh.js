@@ -36,7 +36,10 @@ function handleCredentialResponse(response) {
   document.getElementById('chart').style.display = 'block';
   document.getElementById('signoutButton').style.display = 'block';
   document.getElementById('header').style.display = 'block';
+  console.log(hh);
   document.getElementById('controls').style.display = 'block';
+  document.getElementById('signoutButton').style.setProperty('display', 'block', 'important');
+  
   fetchAnalyticsData();
 }
 
