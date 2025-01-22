@@ -46,6 +46,7 @@ button[onclick="handleSignoutClick()"] {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  background-color: aliceblue;
 }
 
 /* Stilizacija canvas elemenata */
