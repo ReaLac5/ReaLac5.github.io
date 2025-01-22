@@ -13,21 +13,14 @@ let tokenClient;
   document.getElementById('controls').style.display = 'block';
 });*/
 
-function handleAuthClick(event) {
-  event.preventDefault();
+function handleAuthClick() {
   tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
     scope: SCOPES,
     callback: (response) => {
-      console.log(response.access_token);
       if (response.access_token) {
-        console.log("hh")
-        isAuthenticated = true;
         localStorage.setItem('access_token', response.access_token);
-        document.getElementById('signoutButton').style.display = 'block';
-        document.getElementById('header').style.display = 'block';
-        document.getElementById('controls').style.display = 'block';
-        fetchAnalyticsData(); // Pozovi dohvaćanje podataka nakon uspješne prijave
+        fetchAnalyticsData();
       } else {
         console.error("Autentifikacija nije uspjela.");
       }
@@ -88,11 +81,16 @@ function handleSignoutClick() {
 }*/
 
 async function fetchAnalyticsData(dateRangeValue) {
+  
   const token = localStorage.getItem("access_token");
   if (!token) {
     console.error("Nema pristupnog tokena. Prijavite se ponovno.");
     return;
   }
+
+  document.getElementById('signoutButton').style.display = 'block';
+  document.getElementById('header').style.display = 'block';
+  document.getElementById('controls').style.display = 'block';
 
   //const { startDate, endDate } = getDateRange(dateRangeValue);
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${PROPERTY_ID}:runReport`;
