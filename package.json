@@ -1,0 +1,25 @@
+{
+  "name": "realac5.github.io",
+  "version": "1.0.0",
+  "description": "These are the files for my website / web portfolio.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ReaLac5/ReaLac5.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ReaLac5/ReaLac5.github.io/issues"
+  },
+  "homepage": "https://github.com/ReaLac5/ReaLac5.github.io#readme",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "natural": "^8.0.1"
+  }
+}
