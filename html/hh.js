@@ -425,7 +425,10 @@ function renderCharts(chartData) {
         maintainAspectRatio: false,
         aspectRatio: 1,
         plugins: {
-          //legend: { position: 'top' },
+          legend: { 
+            position: 'top',
+            display: type !== 'bar' // Ako je tip 'bar', neće biti legende
+          },
           title: { display: true, text: `Podaci za ${key}` },
         },
         layout: {
