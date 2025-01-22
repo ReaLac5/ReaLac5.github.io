@@ -378,7 +378,9 @@ function renderCharts(chartData) {
     chartWrapper.appendChild(chartCanvas); // Dodaj canvas u novi div
     chartContainer.appendChild(chartWrapper);
 
-    const types = ['bar', 'bar', 'doughnut', 'pie', 'bar']
+    const types = ['bar', 'bar', 'doughnut', 'pie', 'bar'];
+
+    let currentChart = null;
 
     /*new Chart(chartCanvas.getContext('2d'), {
       type: 'doughnut', // Koristimo 'doughnut' za zanimljiviji prikaz
@@ -408,6 +410,10 @@ function renderCharts(chartData) {
       },
     });*/
     types.forEach((type, index) => {
+      if (currentChart) {
+        currentChart.destroy();
+      }
+
       new Chart(chartCanvas.getContext('2d'), {
         type: type, // Dinamički postavljamo tip grafikona
         data: {
