@@ -1,10 +1,10 @@
 /* Sakrivanje tipke za odjavu prema zadanim postavkama */
 button[onclick="handleSignoutClick()"] {
     display: none;
-    margin: 10px;
+   /*margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer;
+    cursor: pointer;*/
   }
   
   /* Stil za platno Chart.js grafikona */
@@ -22,23 +22,12 @@ button[onclick="handleSignoutClick()"] {
     margin-top: 50px;
   }*/
   
-button {
+/*button {
   margin: 10px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-}
-
-.button-container {
-  width: 100%;
-  max-width: 1200px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex; /* Flexbox za horizontalno poravnavanje */
-}
+}*/
 
 /* Glavni kontejner za grafikone */
 .chart-container {
