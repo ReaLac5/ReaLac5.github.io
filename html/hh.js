@@ -13,7 +13,8 @@ let tokenClient;
   document.getElementById('controls').style.display = 'block';
 });*/
 
-function handleAuthClick() {
+function handleAuthClick(event) {
+  event.preventDefault();
   tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
     scope: SCOPES,
@@ -21,7 +22,7 @@ function handleAuthClick() {
       console.log(response.access_token);
       if (response.access_token) {
         console.log("hh")
-        isAuthenticated = True;
+        isAuthenticated = true;
         localStorage.setItem('access_token', response.access_token);
         document.getElementById('signoutButton').style.display = 'block';
         document.getElementById('header').style.display = 'block';
