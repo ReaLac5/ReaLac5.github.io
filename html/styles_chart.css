@@ -43,10 +43,16 @@ button[onclick="handleSignoutClick()"] {
 }*/
 
 #chartContainer {
+  max-width: 100%;
+  overflow-x: hidden;
   width: 100%;  /* Grafikon će zauzeti 100% širine roditeljskog elementa */
   max-width: 100%;  /* Ograničava širenje izvan širine tijela */
   overflow: hidden; /* Sprječava prelijevanje sadržaja izvan okvira */
   margin: 0 auto; /* Centriraj grafikon na stranici */
+  display: flex;
+  flex-wrap: wrap; /* Omogućuje da se grafikon rasporedi u redove ako je potrebno */
+  justify-content: space-around; /* Raspoređuje elemente ravnomjerno */
+  align-items: center;
   background-color: aliceblue;
 }
 
@@ -54,7 +60,7 @@ button[onclick="handleSignoutClick()"] {
 canvas {
   width: 100%; /* Grafikoni zauzimaju cijelu širinu kontejnera */
   max-width: 100%; /* Sprječava prelazak izvan roditeljskog elementa */
-  height: 400px; /* Fiksna visina za svaki grafikon */
+  height: auto; /* Fiksna visina za svaki grafikon */
 }
 
 .chart-wrapper {
