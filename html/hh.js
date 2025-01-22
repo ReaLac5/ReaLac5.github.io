@@ -116,7 +116,7 @@ function renderChart(data) {
     }],
   };
 
-  const ctx = document.getElementById('chart').getContext('2d');
+  const ctx = document.getElementById('chart_jj').getContext('2d');
   new Chart(ctx, {
     type: 'bar',
     data: chartData,
