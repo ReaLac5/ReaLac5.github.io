@@ -15,6 +15,7 @@ function handleAuthClick() {
     scope: SCOPES,
     callback: (response) => {
       if (response.access_token) {
+        isAuthenticated = True;
         localStorage.setItem('access_token', response.access_token);
         document.getElementById('signoutButton').style.display = 'block';
         document.getElementById('header').style.display = 'block';
@@ -31,7 +32,7 @@ function handleAuthClick() {
 }
 
 // Funkcija za odgovor nakon autentifikacije
-function handleCredentialResponse(response) {
+/*function handleCredentialResponse(response) {
   console.log("Authentication Response: ", response);
   const token = response.credential;
   localStorage.setItem("access_token", token); 
@@ -39,18 +40,17 @@ function handleCredentialResponse(response) {
   document.getElementById('chart').style.display = 'block';
   document.getElementById('signoutButton').style.display = 'block';
   document.getElementById('header').style.display = 'block';
-  document.getElementById('controls').style.display = 'block';
-  document.getElementById('signoutButton').style.setProperty('display', 'block', 'important');
-  
   fetchAnalyticsData();
-}
+}*/
 
 // Funkcija za odjavu
 function handleSignoutClick() {
   google.accounts.oauth2.revoke(localStorage.getItem("access_token"), () => {
     isAuthenticated = false;
     document.getElementById('chart').style.display = 'none';
-    document.getElementById('signoutButton').style.display = 'none'; 
+    document.getElementById('signoutButton').style.display = 'none';
+    document.getElementById('header').style.display = 'none';
+    document.getElementById('controls').style.display = 'none'; 
     console.log("User signed out.");
   });
   localStorage.removeItem("access_token");
@@ -357,9 +357,9 @@ if(isAuthenticated)
 
 
 // Inicijalizacija nakon učitavanja stranice
-window.onload = function() {
+/*window.onload = function() {
   google.accounts.id.initialize({
     client_id: CLIENT_ID,
     callback: handleCredentialResponse,
   });
-};
+};*/
