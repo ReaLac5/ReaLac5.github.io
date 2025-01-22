@@ -17,7 +17,7 @@
 }*/
 
 #signoutButton {
-  display: none !important;
+  display: none;
 }
 
 /* Osiguraj da je body u pravoj širini i bez skrolanja u horizontalnom smjeru */

@@ -80,81 +80,76 @@ function getDateRange(value) {
   }
 }
 
-// Funkcija za dohvaćanje podataka iz Google Analytics Data API v1
-// Funkcija za dohvaćanje podataka iz Google Analytics Data API v1
-/*async function fetchAnalyticsData() {
-  // Dohvati pristupni token iz lokalne pohrane
+async function fetchAnalyticsData(dateRangeValue) {
   const token = localStorage.getItem("access_token");
   if (!token) {
     console.error("Nema pristupnog tokena. Prijavite se ponovno.");
     return;
   }
 
-  // URL za Google Analytics Data API zahtjev
+  const { startDate, endDate } = getDateRange(dateRangeValue);
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${PROPERTY_ID}:runReport`;
-  const today = new Date().toISOString().split('T')[0];
-  // Tijelo zahtjeva s dimenzijama, metrima i vremenskim rasponom
-  const activeUsersRequestBody = {
-    dimensions: [{ name: 'date' }],
-    metrics: [{ name: 'activeUsers' }],
-    dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
-  };
 
-  const sessionsRequestBody = {
-    dimensions: [{ name: 'date' }],
-    metrics: [{ name: 'sessions' }],
-    dateRanges: [{ startDate: "7daysAgo", endDate: today }],
+  const requestBodies = {
+    country: {
+      dimensions: [{ name: 'country' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate, endDate }],
+    },
+    browser: {
+      dimensions: [{ name: 'browser' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate, endDate }],
+    },
+    city: {
+      dimensions: [{ name: 'city' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate, endDate }],
+    },
+    deviceCategory: {
+      dimensions: [{ name: 'deviceCategory' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate, endDate }],
+    },
+    deviceModel: {
+      dimensions: [{ name: 'deviceModel' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate, endDate }],
+    },
+    operatingSystem: {
+      dimensions: [{ name: 'operatingSystem' }],
+      metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate, endDate }],
+    },
   };
 
   try {
-    // Pošalji POST zahtjev za aktivne korisnike
-    const activeUsersResponse = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(activeUsersRequestBody),
-    });
+    const responses = await Promise.all(
+      Object.entries(requestBodies).map(async ([key, body]) => {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        });
+        if (!response.ok) {
+          const errorDetails = await response.json();
+          throw new Error(`${key} API Error: ${errorDetails.error.message}`);
+        }
+        return { key, data: await response.json() };
+      })
+    );
 
-    // Provjera statusa odgovora
-    if (!activeUsersResponse.ok) {
-      const errorDetails = await activeUsersResponse.json();
-      console.error(`Greška u API pozivu: ${activeUsersResponse.status} - ${errorDetails.error.message}`);
-      return;
-    }
+    const chartData = Object.fromEntries(responses.map(({ key, data }) => [key, data]));
+    renderCharts(chartData);
 
-    // Obradi uspješan odgovor za aktivne korisnike
-    const activeUsersData = await activeUsersResponse.json();
-    
-    // Pošalji POST zahtjev za broj sesija
-    const sessionsResponse = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(sessionsRequestBody),
-    });
-
-    if (!sessionsResponse.ok) {
-      const errorDetails = await sessionsResponse.json();
-      console.error(`Greška u API pozivu: ${sessionsResponse.status} - ${errorDetails.error.message}`);
-      return;
-    }
-
-    // Obradi uspješan odgovor za sesije
-    const sessionsData = await sessionsResponse.json();
-    console.log("API Response for Active Users:", activeUsersData);
-    console.log("API Response for Sessions:", sessionsData);
-
-    // Pozovi funkciju za renderiranje oba grafikona
-    renderCharts(activeUsersData, sessionsData);
-    
   } catch (err) {
     console.error("Greška u dohvaćanju podataka:", err);
   }
-}*/
+}
+
 
 async function fetchAnalyticsData(dateRange) {
   const token = localStorage.getItem("access_token");
@@ -346,14 +341,11 @@ function renderCharts(chartData) {
   });
 }
 
-if(isAuthenticated)
-{
-  dateRangeElement.addEventListener("change", (event) => {
-    const selectedRange = event.target.value;
-    const dateRange = getDateRange(selectedRange);
-    fetchAnalyticsData(dateRange); // Dohvati podatke za novi vremenski raspon
-  });
-}
+document.getElementById("controls").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const dateRangeValue = document.getElementById("date-range").value;
+  fetchAnalyticsData(dateRangeValue);
+});
 
 
 // Inicijalizacija nakon učitavanja stranice

@@ -6,7 +6,7 @@
   <title>Google Analytics Chart</title>
   <meta name="google-signin-client_id" content="1097344377477-00qph6q9jiin2muv6ntpsg9go98lqbfe.apps.googleusercontent.com">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -45,7 +45,7 @@
     <h2 style="margin-bottom: 20px;">Google Analytics Podaci</h2>
   </header>
 
-  <div id="controls" style="display: none;">
+  <!-- <div id="controls" style="display: none; align-self: center; justify-content: center;">
     <label for="dateRange">Select Date Range:</label>
     <select id="dateRange">
       <option value="today">Today</option>
@@ -53,18 +53,20 @@
       <option value="lastMonth">Last Month</option>
       <option value="3monthsAgo">Last 3 Months</option>
     </select>
-  </div>
+  </div> -->
+
+  <form id="controls" style="display: none; align-self: center; justify-content: center;">
+    <label for="date-range">Odaberite vremenski raspon:</label>
+    <select id="date-range" required>
+      <option value="today">Danas</option>
+      <option value="7daysAgo">Posljednjih 7 dana</option>
+      <option value="lastMonth">Prošli mjesec</option>
+      <option value="3monthsAgo">Posljednja 3 mjeseca</option>
+    </select>
+    <button type="submit">Učitaj podatke</button>
+  </form>
   
   <div id="chartContainer" style="display: none;"></div>
-
-  <!-- <div class="chart-container">
-    <div class="chart-wrapper">
-      <canvas id="chart_jj"></canvas>
-    </div>
-    <div class="chart-wrapper">
-      <canvas id="chart_kk"></canvas>
-    </div>
-  </div> -->
 
   <footer class="footer">
     <div class="container d-flex flex-column align-items-center justify-content-center">
