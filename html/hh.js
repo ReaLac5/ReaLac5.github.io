@@ -309,6 +309,16 @@ function renderCharts(chartData) {
     const labels = data.rows.map(row => row.dimensionValues[0].value);
     const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
 
+    if (key === 'sessionDuration') {
+      values = values.map(value => parseFloat(value).toFixed(2));  // Formatiraj u sekunde
+    }
+
+    // Specifična obrada za topPages
+    if (key === 'topPages') {
+      // Pronađi top stranice s najviše pregleda
+      values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
+    }
+
     const chartWrapper = document.createElement("div");
     chartWrapper.classList.add("chart-wrapper");
 
