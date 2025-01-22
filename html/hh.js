@@ -16,6 +16,9 @@ function handleAuthClick() {
     callback: (response) => {
       if (response.access_token) {
         localStorage.setItem('access_token', response.access_token);
+        document.getElementById('signoutButton').style.display = 'block';
+        document.getElementById('header').style.display = 'block';
+        document.getElementById('controls').style.display = 'block';
         fetchAnalyticsData(); // Pozovi dohvaćanje podataka nakon uspješne prijave
       } else {
         console.error("Autentifikacija nije uspjela.");
@@ -36,7 +39,6 @@ function handleCredentialResponse(response) {
   document.getElementById('chart').style.display = 'block';
   document.getElementById('signoutButton').style.display = 'block';
   document.getElementById('header').style.display = 'block';
-  console.log(hh);
   document.getElementById('controls').style.display = 'block';
   document.getElementById('signoutButton').style.setProperty('display', 'block', 'important');
   
