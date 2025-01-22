@@ -414,7 +414,7 @@ function renderCharts(chartData) {
         currentChart.destroy();
       }
 
-      new Chart(chartCanvas.getContext('2d'), {
+      currentChart = new Chart(chartCanvas.getContext('2d'), {
         type: type, // Dinamički postavljamo tip grafikona
         data: {
           labels: labels,
