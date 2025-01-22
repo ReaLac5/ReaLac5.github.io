@@ -353,10 +353,71 @@ async function renderCharts_session(response) {
   });
 }*/
 
-
-
-
 function renderCharts(chartData) {
+  const chartContainer = document.getElementById("chartContainer");
+  chartContainer.style.display = "flex";
+  chartContainer.innerHTML = ''; // Očisti prethodne grafikone
+
+  const types = ['bar', 'bar', 'doughnut', 'pie', 'bar']; // Lista tipova grafikona
+
+  Object.entries(chartData).forEach(([key, data], index) => {
+    if (!data || !data.rows || data.rows.length === 0) {
+      console.warn(`Nema podataka za ${key}`);
+      return;
+    }
+
+    const labels = data.rows.map(row => row.dimensionValues[0].value);
+    const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
+
+    // Kreiraj wrapper za grafikon
+    const chartWrapper = document.createElement("div");
+    chartWrapper.classList.add("chart-wrapper");
+
+    // Kreiraj canvas element
+    const chartCanvas = document.createElement("canvas");
+    chartCanvas.id = `chart_${key}`;
+    chartWrapper.appendChild(chartCanvas); // Dodaj canvas u novi div
+    chartContainer.appendChild(chartWrapper);
+
+    // Odaberi tip grafikona prema indeksu
+    const type = types[index % types.length]; // Dinamički odaberi tip na temelju indeksa
+
+    // Generiraj više datasetova za svaku boju
+    const datasets = labels.map((label, i) => ({
+      label: label, // Labela za svakog pojedinca
+      data: [values[i]], // Samo jedan podatak
+      backgroundColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`,
+      borderColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`,
+      borderWidth: 1,
+    }));
+
+    // Kreiraj grafikon
+    new Chart(chartCanvas.getContext('2d'), {
+      type: type, // Postavi tip grafikona
+      data: {
+        labels: labels,
+        datasets: datasets, // Sada imamo više datasetova
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        aspectRatio: 1,
+        plugins: {
+          legend: { position: 'top' },
+          title: { display: true, text: `Podaci za ${key}` },
+        },
+        layout: {
+          padding: 10 // Dodaj padding oko grafikona
+        }
+      },
+    });
+  });
+}
+
+
+
+
+/*function renderCharts(chartData) {
   const chartContainer = document.getElementById("chartContainer");
   chartContainer.style.display = "flex";
   chartContainer.innerHTML = '';
@@ -411,7 +472,7 @@ function renderCharts(chartData) {
         }
       },
     });*/
-    new Chart(chartCanvas.getContext('2d'), {
+    /*new Chart(chartCanvas.getContext('2d'), {
       type: type, // Postavi tip grafikona
       data: {
         labels: labels,
@@ -437,7 +498,7 @@ function renderCharts(chartData) {
       },
     });
   });
-}
+}*/
 
 document.getElementById("controls").addEventListener("submit", (event) => {
   event.preventDefault();
