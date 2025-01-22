@@ -338,9 +338,6 @@ function renderCharts(chartData) {
 function updateDateRangeState() {
   const dateRangeElement = document.getElementById("dateRange");
 
-  // Uvijek omogućiti odabir vremenskog raspona
-  dateRangeElement.disabled = false;
-
   // Dodaj događaj za promjenu vremenskog raspona
   dateRangeElement.addEventListener("change", (event) => {
     const selectedRange = event.target.value;
@@ -355,6 +352,11 @@ function updateDateRangeState() {
 }
 
 
+dateRangeElement.addEventListener("change", (event) => {
+  const selectedRange = event.target.value;
+  const dateRange = getDateRange(selectedRange);
+  fetchAnalyticsData(dateRange); // Dohvati podatke za novi vremenski raspon
+});
 
 
 // Inicijalizacija nakon učitavanja stranice
