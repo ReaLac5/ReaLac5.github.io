@@ -61,13 +61,13 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
       metrics: [{ name: 'activeUsers' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
-    browser: {
-      dimensions: [{ name: 'browser' }],
+    city: {
+      dimensions: [{ name: 'city' }],
       metrics: [{ name: 'activeUsers' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
-    city: {
-      dimensions: [{ name: 'city' }],
+    browser: {
+      dimensions: [{ name: 'browser' }],
       metrics: [{ name: 'activeUsers' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
@@ -380,7 +380,9 @@ function renderCharts(chartData) {
     chartWrapper.appendChild(chartCanvas); // Dodaj canvas u novi div
     chartContainer.appendChild(chartWrapper);
 
-    new Chart(chartCanvas.getContext('2d'), {
+    const types = ['map', 'bar', 'doughnut', 'pie', 'bar']
+
+    /*new Chart(chartCanvas.getContext('2d'), {
       type: 'doughnut', // Koristimo 'doughnut' za zanimljiviji prikaz
       data: {
         labels: labels,
@@ -399,13 +401,40 @@ function renderCharts(chartData) {
         aspectRatio: 1,
         plugins: {
           legend: { position: 'top' },
-          title: { display: true, text: `Data for ${key}` },
+          title: { display: true, text: `Podaci za ${key}` },
           //title: { display: true, text: key === 'sessionDuration' ? 'Average Session Duration' : `Podaci za ${key}` },
         },
         layout: {
           padding: 10 // Dodaj padding oko grafikona
         }
       },
+    });*/
+    types.forEach((type, index) => {
+      new Chart(chartCanvas.getContext('2d'), {
+        type: type, // Dinamički postavljamo tip grafikona
+        data: {
+          labels: labels,
+          datasets: [{
+            label: `Active Users by ${key}`, // 'key' može biti varijabla koju definiraš
+            data: values,
+            backgroundColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
+            borderColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`),
+            borderWidth: 1,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          aspectRatio: 1,
+          plugins: {
+            legend: { position: 'top' },
+            title: { display: true, text: `Podaci za ${key}` },
+          },
+          layout: {
+            padding: 10 // Dodaj padding oko grafikona
+          }
+        },
+      });
     });
   });
 }
