@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="styles_chart.css">
 </head>
-<body>
+<body class = "page-container">
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="../index.html">
@@ -24,20 +24,21 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link active" href="aboutme.html">O meni</a></li>
+            <li class="nav-item"><a class="nav-link" href="aboutme.html">O meni</a></li>
             <li class="nav-item"><a class="nav-link" href="projects.html">Projekti</a></li>
             <li class="nav-item"><a class="nav-link" href="cv.html">CV</a></li>
             <li class="nav-item"><a class="nav-link" href="contact.html">Kontakt</a></li>
-            <li class="nav-item"><a class="nav-link" href="chart.html">Analitika</a></li>
+            <li class="nav-item"><a class="nav-link active" href="chart.html">Analitika</a></li>
         </ul>
     </div>
   </nav>
 
-
-  <div class="button-container">
+  <div class="content">
     <button onclick="handleAuthClick()">Prijavite se s Google računom</button>
     <button onclick="handleSignoutClick()">Odjavite se</button>
+    <hr class="mb-5" style="width: 60%; margin: 0 auto; border-top: 3px solid #4f5b66;">
   </div>
+  
   <header>
     <h2>Google Analytics Data</h2>
   </header>
