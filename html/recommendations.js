@@ -99,6 +99,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Generiramo vektore za stranice koje je korisnik posjetio
     let userVisitedVectors = userHistory.map(url => {
       let page = pages.find(p => p.name === url);
+      
+      // Ako stranica nije pronađena, postavimo prazan vektor
+      if (!page) {
+        console.warn(`Stranica ${url} nije pronađena u listi stranica.`);
+        return new Array(allContents.length).fill(0); // Prazan vektor
+      }
+  
       return generateFeatureVector(page.content, allContents);
     });
   
@@ -120,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Vraćamo stranice s najboljim preporukama
     return recommendedPages.slice(0, 3); // Top 3 preporuke
   }
+  
   
   // Funkcija za prikaz preporuka na stranici
   function displayRecommendations(recommendations) {
