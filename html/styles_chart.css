@@ -29,38 +29,22 @@ button[onclick="handleSignoutClick()"] {
   cursor: pointer;
 }*/
 
-/* Glavni kontejner za grafikone */
 .chart-container {
-  width: 100%;
+  width: 100%; /* Grafikoni zauzimaju cijelu širinu roditeljskog elementa */
+  max-width: 1200px; /* Maksimalna širina grafikona */
+  margin: 20px auto; /* Centriranje grafikona s automatskim razmakom */
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  display: flex; /* Flexbox za horizontalno poravnavanje */
-  justify-content: space-between; /* Razmak između grafikona */
-  gap: 20px; /* Razmak između dva grafikona */
-}
-
-/*h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  width: 100%;
-  text-align: center;
-}*/
-
-/* Kontejner za pojedinačne grafikone */
-.chart-wrapper {
-  flex: 1; /* Svaki grafikon zauzima isti prostor */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* Grafikoni jedan ispod drugog */
+  gap: 20px; /* Razmak između grafikona */
 }
 
-/* Stiliziranje canvas elemenata */
+/* Stilizacija canvas elemenata */
 canvas {
-  max-width: 100%;
-  height: 400px; /* Visina grafikona */
-  width: 100% !important; /* Osiguravanje da grafikon popuni raspoloživi prostor */
+  width: 100%; /* Grafikoni zauzimaju cijelu širinu kontejnera */
+  max-width: 100%; /* Sprječava prelazak izvan roditeljskog elementa */
+  height: 400px; /* Fiksna visina za svaki grafikon */
 }
-
