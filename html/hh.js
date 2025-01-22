@@ -116,7 +116,11 @@ function renderChart(data) {
     }],
   };
 
-  const ctx = document.getElementById('chart_jj').getContext('2d');
+  const canvas = document.getElementById('chart_jj');
+  canvas.style.display = 'block'; // Prikazivanje elementa
+  const ctx = canvas.getContext('2d');
+
+  //const ctx = document.getElementById('chart_jj').getContext('2d');
   new Chart(ctx, {
     type: 'bar',
     data: chartData,
