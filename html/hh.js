@@ -320,6 +320,8 @@ function renderCharts(chartData) {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
+        aspectRatio: 1,
         plugins: {
           legend: { position: 'top' },
           title: { display: true, text: `Active Users by ${key}` },
