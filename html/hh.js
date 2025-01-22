@@ -61,7 +61,7 @@ async function fetchAnalyticsData() {
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${PROPERTY_ID}:runReport`;
   const today = new Date().toISOString().split('T')[0];
   // Tijelo zahtjeva s dimenzijama, metrima i vremenskim rasponom
-  const requestBody = {
+  const activeUsersRequestBody = {
     dimensions: [{ name: 'date' }],
     metrics: [{ name: 'activeUsers' }],
     dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
