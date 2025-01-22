@@ -43,31 +43,22 @@ button[onclick="handleSignoutClick()"] {
 }*/
 
 #chartContainer {
-  max-width: 100%;
-  overflow-x: hidden;
-  width: 100%;  /* Grafikon će zauzeti 100% širine roditeljskog elementa */
-  max-width: 100%;  /* Ograničava širenje izvan širine tijela */
-  overflow: hidden; /* Sprječava prelijevanje sadržaja izvan okvira */
-  margin: 0 auto; /* Centriraj grafikon na stranici */
+  width: 100%; /* Postavlja širinu na 100% širine parent elementa */
+  max-width: 100%; /* Maksimalna širina kontejnera na 100% */
+  height: 400px; /* Ovdje možeš prilagoditi visinu */
+  overflow: auto; /* Dodaje mogućnost skrolanja ako je sadržaj prevelik */
   display: flex;
-  flex-wrap: wrap; /* Omogućuje da se grafikon rasporedi u redove ako je potrebno */
-  justify-content: space-around; /* Raspoređuje elemente ravnomjerno */
-  align-items: center;
+  flex-wrap: wrap; /* Omogućuje wrapanje sadržaja unutar kontejnera */
   background-color: aliceblue;
 }
 
 /* Stilizacija canvas elemenata */
 canvas {
-  width: 100%; /* Grafikoni zauzimaju cijelu širinu kontejnera */
-  max-width: 100%; /* Sprječava prelazak izvan roditeljskog elementa */
-  height: auto; /* Fiksna visina za svaki grafikon */
+  width: 100% !important; /* Postavlja širinu kanvasa na 100% širine wrappera */
+  height: auto !important; /* Visina se automatski prilagođava */
 }
 
 .chart-wrapper {
-  width: 100%;      /* Širina koja će zauzeti cijeli prostor */
-  max-width: 600px; /* Možeš ograničiti širinu */
-  margin: 20px;     /* Razmak između grafikona */
-  display: flex;
-  justify-content: center; /* Centriraj grafikon unutar wrappera */
-  align-items: center;
+  flex: 1 1 45%; /* Grafikoni zauzimaju 45% širine, prilagodljivo za manje ekrane */
+  margin: 10px; /* Razmak između grafikona */
 }
