@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   
-    // Praćenje posjeta određenim stranicama
-    updateUserHistory('/home');  // Kad korisnik posjeti stranicu "/home"
-    updateUserHistory('/products');  // Kad korisnik posjeti stranicu "/products"
+    // Praćenje posjeta stranici koju korisnik trenutno posjeti
+    const currentPage = window.location.pathname;
+    updateUserHistory(currentPage);
   
     // Dohvaćanje povijesti
     let userHistory = JSON.parse(localStorage.getItem('userHistory') || '[]');
