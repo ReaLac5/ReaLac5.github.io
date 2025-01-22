@@ -147,6 +147,7 @@ async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
     );
 
     const chartData = Object.fromEntries(responses.map(({ key, data }) => [key, data]));
+    console.log(charData);
     renderCharts(chartData);
 
   } catch (err) {
@@ -307,7 +308,7 @@ function renderCharts(chartData) {
     }
 
     const labels = data.rows.map(row => row.dimensionValues[0].value);
-    console.log(labels)
+    console.log(labels);
     const values = data.rows.map(row => parseInt(row.metricValues[0].value, 10));
 
     if (key === 'sessionDuration') {
