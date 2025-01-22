@@ -361,7 +361,9 @@ function renderCharts(chartData) {
   chartContainer.style.display = "flex";
   chartContainer.innerHTML = '';
 
-  Object.entries(chartData).forEach(([key, data]) => {
+  const types = ['bar', 'bar', 'doughnut', 'pie', 'bar'];
+
+  Object.entries(chartData).forEach(([key, data], index) => {
     if (!data || !data.rows || data.rows.length === 0) {
       console.warn(`Nema podataka za ${key}`);
       return;
@@ -378,7 +380,7 @@ function renderCharts(chartData) {
     chartWrapper.appendChild(chartCanvas); // Dodaj canvas u novi div
     chartContainer.appendChild(chartWrapper);
 
-    const types = ['bar', 'bar', 'doughnut', 'pie', 'bar'];
+    //const types = ['bar', 'bar', 'doughnut', 'pie', 'bar'];
 
     const type = types[index % types.length];
 
