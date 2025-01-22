@@ -1,95 +1,133 @@
-const natural = window.natural;  // Učitavamo natural.js s CDN-a
-const TfIdf = natural.TfIdf;
-
-// Funkcija za dohvaćanje podataka iz localStorage-a
-function loadScrapedData() {
-  try {
-    const data = localStorage.getItem('scrapedData');
-    return data ? JSON.parse(data) : {};
-  } catch (error) {
-    console.error('Greška pri učitavanju podataka:', error);
-    return {};
-  }
-}
-
-// Funkcija za dodavanje stranica u TF-IDF model
-function addPagesToTfidf(tfidf, scrapedData) {
-  for (let url in scrapedData) {
-    const content = scrapedData[url];
-    tfidf.addDocument(content);
-  }
-}
-
-// Funkcija za generiranje vektora za stranicu
-function getPageVector(tfidf, pageIndex) {
-  const vector = [];
-  tfidf.listTerms(pageIndex).forEach(item => {
-    vector.push(tfidf.tfidf(item.term, pageIndex)); // Generiramo TF-IDF vrijednosti za sadržaj stranica
-  });
-  return vector;
-}
-
-// Funkcija za izračunavanje kosinusne sličnosti između dvaju vektora
-function cosineSimilarity(vecA, vecB) {
-  const dotProduct = vecA.reduce((sum, val, i) => sum + val * vecB[i], 0);
-  const magnitudeA = Math.sqrt(vecA.reduce((sum, val) => sum + val * val, 0));
-  const magnitudeB = Math.sqrt(vecB.reduce((sum, val) => sum + val * val, 0));
-  return dotProduct / (magnitudeA * magnitudeB);
-}
-
-// Funkcija za generiranje preporuka temeljenih na korisničkoj povijesti
-function getRecommendations(userHistory) {
-  let recommendations = [];
-  let scrapedData = loadScrapedData();
-
-  if (Object.keys(scrapedData).length === 0) {
-    console.log("Nema podataka za analizu.");
-    return recommendations;
-  }
-
-  const tfidf = new TfIdf();
-  addPagesToTfidf(tfidf, scrapedData);
-
-  let pageVectors = {};
-  for (let i = 0; i < Object.keys(scrapedData).length; i++) {
-    pageVectors[Object.keys(scrapedData)[i]] = getPageVector(tfidf, i);
-  }
-
-  // Generiranje preporuka na temelju kosinusne sličnosti
-  for (let page in pageVectors) {
-    if (!userHistory.includes(page)) {
-      const lastVisitedPage = userHistory[userHistory.length - 1];
-      const similarity = cosineSimilarity(pageVectors[lastVisitedPage], pageVectors[page]);
-      recommendations.push({ page, similarity });
-    }
-  }
-
-  // Sortiranje preporuka po sličnosti
-  recommendations.sort((a, b) => b.similarity - a.similarity);
-  return recommendations.map(rec => rec.page);
-}
-
-// Praćenje korisničke povijesti i generiranje preporuka
 document.addEventListener("DOMContentLoaded", () => {
-  const currentPage = window.location.href;
-
-  let userHistory = JSON.parse(localStorage.getItem('userHistory')) || [];
-  userHistory.push(currentPage);  // Dodaj trenutnu stranicu u povijest
-  localStorage.setItem('userHistory', JSON.stringify(userHistory));
-
-  const recommendations = getRecommendations(userHistory);
-  console.log("Preporučene stranice:", recommendations);
-  displayRecommendations(recommendations); // Prikaz preporuka na stranici
-});
-
-// Funkcija za prikaz preporuka u HTML-u
-function displayRecommendations(recommendations) {
-  const recommendationsList = document.getElementById('recommendations-list');
-  recommendationsList.innerHTML = ''; // Čisti prethodne preporuke
-
-  recommendations.forEach(page => {
-    const listItem = document.createElement('li');
-    listItem.textContent = page;
-    recommendationsList.appendChild(listItem);
+    // Funkcija za dodavanje posjeta stranici u povijest
+    function updateUserHistory(pageName) {
+      let userHistory = JSON.parse(localStorage.getItem('userHistory')) || [];
+  
+      // Dodavanje stranice u povijest (ako nije već prisutna)
+      if (!userHistory.includes(pageName)) {
+        userHistory.push(pageName);
+        localStorage.setItem('userHistory', JSON.stringify(userHistory));
+      }
+    }
+  
+    // Praćenje posjeta određenim stranicama
+    updateUserHistory('/home');  // Kad korisnik posjeti stranicu "/home"
+    updateUserHistory('/products');  // Kad korisnik posjeti stranicu "/products"
+  
+    // Dohvaćanje povijesti
+    let userHistory = JSON.parse(localStorage.getItem('userHistory') || '[]');
+    console.log(userHistory);  // Povijest posjeta korisnika
+  
+    // Stranice s njihovim stvarnim sadržajem
+    let pages = [
+      {
+        name: "/home",
+        content: "O meni\n\nTeo Matijašić\n“Stvaram desktop/web i mobilne aplikacije s jednostavnim i privlačnim sučeljem.” Putem ovoga web sjedišta, detaljnije me možeš upoznati, otkriti moje specijalnosti i vještine, pregledati moje projekte i radove ili me kontaktirati za moguću suradnju."
+      },
+      {
+        name: "/about",
+        content: "Kratke informacije o meni!\n\nTeo Matijašić\n“Sve projekte, koje sam izradio za fakultet, karakterizira jednostavnost, praktičnost i usmjerenost na korisnika.”\n\nOPĆENITO\nJa sam student Fakulteta informatike i digitalnih tehnologija u Rijeci koji voli učiti nove stvari i biti uporan u savladavanju novih vještina. Moji radovi obuhvaćaju područja istraživanja korisnika, UI/UX dizajna i razvoja različitih vrsta aplikacija."
+      },
+      {
+        name: "/projects",
+        content: "Moji projekti i radovi!\n\nWeb aplikacija za stručnu praksu\nPodručje:Web razvoj, Backend-Middle-Frontend, Web aplikacija\nProblem: Razvoj cjelokupne web aplikacije za evidenciju stručne prakse na fakultetima\nRezultat: Kreirana funkcionalna web aplikacija s brojnim mogućnostima, spremno za produkciju."
+      },
+      {
+        name: "/project1",
+        content: "Web aplikacija (PostgreSQL/.NET/React)\nAutor: Teo Matijašić\nOpis Projekta\nOvaj projekt je podrazumijevao izradu web aplikacije za evidenciju stručne prakse na fakultetu. Pritom su kreirani svi osnovni dijelovi web aplikacije, od baze podataka u PostgreSQL-u, srednjeg dijela u C# i .NET-u te frontenda u React-u."
+      },
+      {
+        name: "/project2",
+        content: "Dizajn aplikacije Servisly\nAutor: Teo Matijašić\nOpis Projekta\nOvaj projekt je podrazumijevao izradu cjelokupnoga dizajna aplikacije za online naručivanje za servis automobila. Provedene su sve faze UI i UX dizajna, uključujući istraživanje korisnika, analize konkurencije, wireframe, mockup, prototip i testiranje s korisnicima."
+      },
+      {
+        name: "/project3",
+        content: "Aplikacija za putne naloge\nAutor: Teo Matijašić\nOpis Projekta\nOvaj projekt je podrazumijevao izradu cjelokupne aplikacije za evidenciju putnih naloga u Clarionu. Temelj projekta bio je papirnati putni nalog na temelju kojega je kreiran model podataka koji je razrađen u cjelokupnu aplikaciju."
+      },
+      {
+        name: "/contact",
+        content: "Kontaktiraj me!\nTeo Matijašić\nBroj telefona: 091 954 6450\nEmail: teo12matijasic@gmail.com\nDruštvene mreže:\nPošalji mi Email!"
+      },
+      {
+        name: "/cv",
+        content: "Moj životopis (CV)\nPreuzmi CV"
+      }
+    ];
+  
+    // Dohvaćanje sadržaja stranica (simulacija)
+    let recommendations = getRecommendations(userHistory, pages);
+    displayRecommendations(recommendations);
   });
-}
+  
+  // Funkcija za izračunavanje Cosine Similarity
+  function cosineSimilarity(vecA, vecB) {
+    let dotProduct = 0;
+    let normA = 0;
+    let normB = 0;
+  
+    for (let i = 0; i < vecA.length; i++) {
+      dotProduct += vecA[i] * vecB[i];
+      normA += vecA[i] * vecA[i];
+      normB += vecB[i] * vecB[i];
+    }
+  
+    normA = Math.sqrt(normA);
+    normB = Math.sqrt(normB);
+  
+    return dotProduct / (normA * normB);
+  }
+  
+  // Funkcija za generiranje vektora značajki stranice pomoću jednostavne metodologije (npr. TF-IDF)
+  function generateFeatureVector(content, allContents) {
+    const wordFrequency = {};
+    const allWords = allContents.join(' ').split(/\s+/);
+    const uniqueWords = [...new Set(allWords)];
+  
+    uniqueWords.forEach(word => {
+      const wordCountInContent = content.split(/\s+/).filter(w => w === word).length;
+      wordFrequency[word] = wordCountInContent;
+    });
+  
+    return uniqueWords.map(word => wordFrequency[word] || 0);
+  }
+  
+  // Funkcija za dohvaćanje preporuka na temelju korisničke povijesti
+  function getRecommendations(userHistory, pages) {
+    let allContents = pages.map(page => page.content);
+    let recommendedPages = [];
+  
+    // Generiramo vektore za stranice koje je korisnik posjetio
+    let userVisitedVectors = userHistory.map(url => {
+      let page = pages.find(p => p.name === url);
+      return generateFeatureVector(page.content, allContents);
+    });
+  
+    // Za svaku stranicu, izračunavamo sličnost s posjećenim stranicama
+    pages.forEach(page => {
+      let pageVector = generateFeatureVector(page.content, allContents);
+      let similarityScore = 0;
+  
+      userVisitedVectors.forEach(userVector => {
+        similarityScore += cosineSimilarity(userVector, pageVector);
+      });
+  
+      recommendedPages.push({ page: page.name, score: similarityScore });
+    });
+  
+    // Sortiramo preporuke po sličnosti
+    recommendedPages.sort((a, b) => b.score - a.score);
+  
+    // Vraćamo stranice s najboljim preporukama
+    return recommendedPages.slice(0, 3); // Top 3 preporuke
+  }
+  
+  // Funkcija za prikaz preporuka na stranici
+  function displayRecommendations(recommendations) {
+    const recommendationsList = document.getElementById("recommendations-list");
+    recommendations.forEach(rec => {
+      let listItem = document.createElement("li");
+      listItem.textContent = rec.page;
+      recommendationsList.appendChild(listItem);
+    });
+  }
+  
