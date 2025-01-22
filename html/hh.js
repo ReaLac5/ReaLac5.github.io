@@ -350,8 +350,9 @@ document.getElementById("controls").addEventListener("submit", (event) => {
   const dateRangeValue = document.getElementById("date-range").value;
   const valueDiv = document.getElementById('value');
 
-  valueDiv.textContent = `Izabrani raspon: ${selectElement.value}`;
-
+  if(valueDiv){
+    valueDiv.textContent = `Izabrani raspon: ${selectElement.value}`;
+  }
   fetchAnalyticsData(dateRangeValue);
 });
 
