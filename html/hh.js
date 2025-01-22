@@ -35,6 +35,7 @@ function handleCredentialResponse(response) {
   isAuthenticated = true;
   document.getElementById('chart').style.display = 'block';
   document.getElementById('signoutButton').style.display = 'block';
+  document.getElementById('header').style.display = 'block';
   fetchAnalyticsData();
 }
 
