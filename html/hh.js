@@ -338,25 +338,6 @@ function renderCharts(chartData) {
 
 
 
-
-
-function updateDateRangeState() {
-  const dateRangeElement = document.getElementById("dateRange");
-
-  // Dodaj događaj za promjenu vremenskog raspona
-  dateRangeElement.addEventListener("change", (event) => {
-    const selectedRange = event.target.value;
-    const dateRange = getDateRange(selectedRange);
-    fetchAnalyticsData(dateRange); // Dohvati podatke za novi vremenski raspon
-  });
-
-  // Početno dohvaćanje podataka za zadani raspon (npr. Last 7 Days)
-  const defaultRange = "7daysAgo";
-  const dateRange = getDateRange(defaultRange);
-  fetchAnalyticsData(dateRange);
-}
-
-
 dateRangeElement.addEventListener("change", (event) => {
   const selectedRange = event.target.value;
   const dateRange = getDateRange(selectedRange);
@@ -370,6 +351,4 @@ window.onload = function() {
     client_id: CLIENT_ID,
     callback: handleCredentialResponse,
   });
-
-  updateDateRangeState();
 };
