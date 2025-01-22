@@ -331,6 +331,9 @@ function renderCharts(chartData) {
           legend: { position: 'top' },
           title: { display: true, text: `Active Users by ${key}` },
         },
+        layout: {
+          padding: 10 // Dodaj padding oko grafikona
+        }
       },
     });
   });
