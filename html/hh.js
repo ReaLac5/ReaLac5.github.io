@@ -80,7 +80,7 @@ function handleSignoutClick() {
   }
 }*/
 
-async function fetchAnalyticsData(dateRangeValue) {
+async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
   
   const token = localStorage.getItem("access_token");
   if (!token) {
@@ -124,6 +124,15 @@ async function fetchAnalyticsData(dateRangeValue) {
     operatingSystem: {
       dimensions: [{ name: 'operatingSystem' }],
       metrics: [{ name: 'activeUsers' }],
+      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
+    },
+    sessionDuration: { // Nova metrika za trajanje sesije
+      metrics: [{ name: 'averageSessionDuration' }],
+      dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
+    },
+    topPages: { // Nova metrika za najposjećenije stranice
+      dimensions: [{ name: 'pagePath' }],
+      metrics: [{ name: 'screenPageViews' }],
       dateRanges: [{ startDate: dateRangeValue, endDate: "today" }],
     },
   };
@@ -336,7 +345,7 @@ function renderCharts(chartData) {
         aspectRatio: 1,
         plugins: {
           legend: { position: 'top' },
-          title: { display: true, text: `Active Users by ${key}` },
+          title: { display: true, text: key === 'sessionDuration' ? 'Average Session Duration' : `Data for ${key}` },
         },
         layout: {
           padding: 10 // Dodaj padding oko grafikona
@@ -349,9 +358,6 @@ function renderCharts(chartData) {
 document.getElementById("controls").addEventListener("submit", (event) => {
   event.preventDefault();
   const dateRangeValue = document.getElementById("date-range").value;
-  if (!dateRangeSelect.value) {
-    dateRangeSelect.value = "7daysAgo";
-  }
   fetchAnalyticsData(dateRangeValue);
 });
 
