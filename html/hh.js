@@ -339,13 +339,14 @@ function renderCharts(chartData) {
   });
 }
 
-
-
-dateRangeElement.addEventListener("change", (event) => {
-  const selectedRange = event.target.value;
-  const dateRange = getDateRange(selectedRange);
-  fetchAnalyticsData(dateRange); // Dohvati podatke za novi vremenski raspon
-});
+if(isAuthenticated)
+{
+  dateRangeElement.addEventListener("change", (event) => {
+    const selectedRange = event.target.value;
+    const dateRange = getDateRange(selectedRange);
+    fetchAnalyticsData(dateRange); // Dohvati podatke za novi vremenski raspon
+  });
+}
 
 
 // Inicijalizacija nakon učitavanja stranice
