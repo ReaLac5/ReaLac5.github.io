@@ -40,7 +40,7 @@ function handleSignoutClick() {
 }
 
 
-async function fetchAnalyticsData(dateRangeValue = "7daysAgo") {
+async function fetchAnalyticsData(dateRangeValue = "today") {
   
   const token = localStorage.getItem("access_token");
   if (!token) {
