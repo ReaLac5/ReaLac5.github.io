@@ -263,39 +263,39 @@ document.addEventListener("DOMContentLoaded", () => {
         let listItem = document.createElement("li");
         let link = document.createElement("a");
         if(rec.page == "home"){
-          listItem.textContent = "Home";
+          link.textContent = "Home";
           link.href = "home.html";
         }
         else if(rec.page == "projects") {
-          listItem.textContent = "Projekti";
+          link.textContent = "Projekti";
           link.href = "projects.html";
         }
         else if(rec.page == "contact") {
-          listItem.textContent = "Kontakt";
+          link.textContent = "Kontakt";
           link.href = "contact.html";
         }
         else if(rec.page == "cv") {
-          listItem.textContent = "CV";
+          link.textContent = "CV";
           link.href = "cv.html";
         }
         else if(rec.page == "aboutme") {
-          listItem.textContent = "O meni";
+          link.textContent = "O meni";
           link.href = "aboutme.html";
         }
         else if(rec.page == "chart") {
-          listItem.textContent = "Analitika";
+          link.textContent = "Analitika";
           link.href = "chart.html";
         }
         else if(rec.page == "project1") {
-          listItem.textContent = "Projekt 1";
+          link.textContent = "Projekt 1";
           link.href = "project1.html";
         }
         else if(rec.page == "project2") {
-          listItem.textContent = "Projekt 2";
+          link.textContent = "Projekt 2";
           link.href = "project2.html";
         }
         else if(rec.page == "project3") {
-          listItem.textContent = "Projekt 3";
+          link.textContent = "Projekt 3";
           link.href = "project3.html";
         }
         //listItem.textContent = rec.page;
