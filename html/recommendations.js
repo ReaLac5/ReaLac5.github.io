@@ -264,39 +264,39 @@ document.addEventListener("DOMContentLoaded", () => {
         let link = document.createElement("a");
         if(rec.page == "home"){
           listItem.textContent = "Home";
-          link.href = "/home";
+          link.href = "home.html";
         }
         else if(rec.page == "projects") {
           listItem.textContent = "Projekti";
-          link.href = "/projects";
+          link.href = "projects.html";
         }
         else if(rec.page == "contact") {
           listItem.textContent = "Kontakt";
-          link.href = "/contact";
+          link.href = "contact.html";
         }
         else if(rec.page == "cv") {
           listItem.textContent = "CV";
-          link.href = "/cv";
+          link.href = "cv.html";
         }
         else if(rec.page == "aboutme") {
           listItem.textContent = "O meni";
-          link.href = "/aboutme";
+          link.href = "aboutme.html";
         }
         else if(rec.page == "chart") {
           listItem.textContent = "Analitika";
-          link.href = "/chart";
+          link.href = "chart.html";
         }
         else if(rec.page == "project1") {
           listItem.textContent = "Projekt 1";
-          link.href = "/project1";
+          link.href = "project1.html";
         }
         else if(rec.page == "project2") {
           listItem.textContent = "Projekt 2";
-          link.href = "/project2";
+          link.href = "project2.html";
         }
         else if(rec.page == "project3") {
           listItem.textContent = "Projekt 3";
-          link.href = "/project3";
+          link.href = "project3.html";
         }
         //listItem.textContent = rec.page;
         listItem.appendChild(link);
