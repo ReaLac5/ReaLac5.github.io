@@ -169,10 +169,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let recommendedPages = [];
     
         // Generiraj vektore za trenutnu i zadnje posjećene stranice
-        let currentPageVector = generateTFIDFVector(
+        /*let currentPageVector = generateTFIDFVector(
           pages.find(page => page.name === currentPage)?.content || "",
           allContents
-        );
+        );*/
+        let currentPageData = pages.find(page => page.name === currentPage);
+        currentPageVector = generateTFIDFVector(currentPageData.content, allContents);
         let recentVectors = recentHistory
           .map(url => {
             let page = pages.find(p => p.name === url);
