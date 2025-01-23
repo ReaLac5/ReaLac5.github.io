@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
       if (!userHistory.includes(pageName)) {
         userHistory.push(pageName);
-        setCookie('userHistory', JSON.stringify(userHistory), 7); // Kolačić vrijedi 7 dana
+        setCookie('userHistory', JSON.stringify(userHistory), 1); // Kolačić vrijedi 1 dan
       }
     }
   
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Dohvaćanje preporuka
     //let recommendations = getRecommendations(userHistory, pages);
-    let recommendations = getRecommendations(currentPage, userHistory.slice(-3), pages);
+    let recommendations = getRecommendations(currentPage, userHistory.slice(-3, -1), pages);
     displayRecommendations(recommendations);
   
     // Funkcija za izračunavanje Cosine Similarity
