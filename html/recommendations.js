@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     // Funkcija za ažuriranje korisničke povijesti
-    function updateUserHistory(pageName) {
+    /*function updateUserHistory(pageName) {
       let userHistory = getCookie('userHistory');
       userHistory = userHistory ? JSON.parse(userHistory) : [];
   
@@ -27,6 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
         userHistory.push(pageName);
         setCookie('userHistory', JSON.stringify(userHistory), 1); // Kolačić vrijedi 1 dan
       }
+    }*/
+
+    function updateUserHistory(pageName) {
+        let userHistory = getCookie('userHistory');
+        userHistory = userHistory ? JSON.parse(userHistory) : [];
+        
+        // Uvijek staviti trenutnu stranicu na kraj
+        if (userHistory[userHistory.length - 1] !== pageName) {
+            userHistory.push(pageName);
+            setCookie('userHistory', JSON.stringify(userHistory), 1); // Kolačić vrijedi 1 dan
+        }
     }
   
     // Praćenje trenutne stranice
