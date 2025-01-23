@@ -54,3 +54,14 @@ canvas {
   height: auto !important; /* Visina se automatski prilagođava */
   max-height: 400px; /* Visina može biti ograničena prema želji */
 }
+
+#recommendations-list {
+  list-style-position: inside; /* Smješta bullet unutar elementa */
+  padding-left: 0; /* Uklanja automatski lijevi razmak */
+  text-align: center; /* Centriranje sadržaja unutar svakog list item-a */
+}
+
+#recommendations-list li {
+  display: inline-block; /* Postavlja svaku listu kao blok za centriranje */
+  margin: 5px 15px; /* Daje prostor između stavki, po želji */
+}
