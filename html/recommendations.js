@@ -173,6 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
           pages.find(page => page.name === currentPage)?.content || "",
           allContents
         );*/
+        console.log(currentPage);
         let currentPageData = pages.find(page => page.name === currentPage);
         currentPageVector = generateTFIDFVector(currentPageData.content, allContents);
         /*let recentVectors = recentHistory
