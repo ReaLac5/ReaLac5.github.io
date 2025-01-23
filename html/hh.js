@@ -29,7 +29,6 @@ function handleAuthClick() {
 // Funkcija za odjavu
 function handleSignoutClick() {
   google.accounts.oauth2.revoke(localStorage.getItem("access_token"), () => {
-    isAuthenticated = false;
     document.getElementById('chart').style.display = 'none';
     document.getElementById('signoutButton').style.display = 'none';
     document.getElementById('header').style.display = 'none';
