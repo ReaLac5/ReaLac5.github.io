@@ -155,21 +155,23 @@ document.addEventListener("DOMContentLoaded", () => {
     
         // Izračunaj sličnost svake stranice s trenutnom i zadnjim posjećenima
         pages.forEach(page => {
-          if (!recentHistory.includes(page.name) && page.name !== currentPage) {
-            let pageVector = generateFeatureVector(page.content, allContents);
-            let similarityScore = 0;
-    
-            // Sličnost s trenutnom stranicom
-            similarityScore += cosineSimilarity(currentPageVector, pageVector);
-    
-            // Sličnost sa zadnjim posjećenim stranicama
-            recentVectors.forEach(recentVector => {
-              similarityScore += cosineSimilarity(recentVector, pageVector);
-            });
-    
-            recommendedPages.push({ page: page.name, score: similarityScore });
-          }
-        });
+            if (page.name !== currentPage) {
+              let pageVector = generateFeatureVector(page.content, allContents);
+              let similarityScore = 0;
+          
+              // Sličnost s trenutnom stranicom
+              if (currentPageVector) {
+                similarityScore += cosineSimilarity(currentPageVector, pageVector);
+              }
+          
+              // Sličnost sa zadnje posjećenom stranicom
+              if (recentVectors.length > 0) {
+                similarityScore += cosineSimilarity(recentVectors[recentVectors.length - 1], pageVector);
+              }
+          
+              recommendedPages.push({ page: page.name, score: similarityScore });
+            }
+          });
     
         // Sortiraj prema sličnosti i uzmi top 3
         recommendedPages.sort((a, b) => b.score - a.score);
