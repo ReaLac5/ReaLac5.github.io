@@ -261,34 +261,45 @@ document.addEventListener("DOMContentLoaded", () => {
       const recommendationsList = document.getElementById("recommendations-list");
       recommendations.forEach(rec => {
         let listItem = document.createElement("li");
+        let link = document.createElement("a");
         if(rec.page == "home"){
           listItem.textContent = "Home";
+          link.href = "/home";
         }
         else if(rec.page == "projects") {
           listItem.textContent = "Projekti";
+          link.href = "/projects";
         }
         else if(rec.page == "contact") {
           listItem.textContent = "Kontakt";
+          link.href = "/contact";
         }
         else if(rec.page == "cv") {
           listItem.textContent = "CV";
+          link.href = "/cv";
         }
         else if(rec.page == "aboutme") {
           listItem.textContent = "O meni";
+          link.href = "/aboutme";
         }
         else if(rec.page == "chart") {
           listItem.textContent = "Analitika";
+          link.href = "/chart";
         }
         else if(rec.page == "project1") {
           listItem.textContent = "Projekt 1";
+          link.href = "/project1";
         }
         else if(rec.page == "project2") {
           listItem.textContent = "Projekt 2";
+          link.href = "/project2";
         }
         else if(rec.page == "project3") {
           listItem.textContent = "Projekt 3";
+          link.href = "/project3";
         }
         //listItem.textContent = rec.page;
+        listItem.appendChild(link);
         recommendationsList.appendChild(listItem);
       });
     }
