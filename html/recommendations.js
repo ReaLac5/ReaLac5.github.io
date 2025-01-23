@@ -152,6 +152,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return page ? generateFeatureVector(page.content, allContents) : null;
           })
           .filter(v => v); // Filtriraj null vrijednosti
+
+          console.log("Vektori stranica:", pages.map(p => generateFeatureVector(p.content, allContents)));
+
+
+
+          console.log("Vektor trenutne stranice:", currentPageVector);
+            console.log("Vektori zadnjih stranica:", recentVectors);
+
     
         // Izračunaj sličnost svake stranice s trenutnom i zadnjim posjećenima
         pages.forEach(page => {
@@ -160,14 +168,22 @@ document.addEventListener("DOMContentLoaded", () => {
               let similarityScore = 0;
           
               // Sličnost s trenutnom stranicom
-              if (currentPageVector) {
+              /*if (currentPageVector) {
                 similarityScore += cosineSimilarity(currentPageVector, pageVector);
               }
           
               // Sličnost sa zadnje posjećenom stranicom
               if (recentVectors.length > 0) {
                 similarityScore += cosineSimilarity(recentVectors[recentVectors.length - 1], pageVector);
-              }
+              }*/
+
+                // Veći prioritet trenutnoj stranici
+                similarityScore += 2 * cosineSimilarity(currentPageVector, pageVector);
+
+                // Manji prioritet zadnje posjećenim stranicama
+                recentVectors.forEach(recentVector => {
+                similarityScore += cosineSimilarity(recentVector, pageVector);
+                });
           
               recommendedPages.push({ page: page.name, score: similarityScore });
             }
