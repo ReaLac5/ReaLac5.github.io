@@ -30,7 +30,7 @@ function handleAuthClick() {
 function handleSignoutClick() {
   console.log(localStorage.getItem("access_token"));
   google.accounts.oauth2.revoke(localStorage.getItem("access_token"), () => {
-    document.getElementById('chart').style.display = 'none';
+    document.getElementById('chartContainer').style.display = 'none';
     document.getElementById('signoutButton').style.display = 'none';
     document.getElementById('header').style.display = 'none';
     document.getElementById('controls').style.display = 'none'; 
