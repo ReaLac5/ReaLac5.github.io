@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
           pages.find(page => page.name === currentPage)?.content || "",
           allContents
         );*/
-        console.log(currentPage);
+        //console.log(currentPage);
         let currentPageData = pages.find(page => page.name === currentPage);
         currentPageVector = generateTFIDFVector(currentPageData.content, allContents);
         /*let recentVectors = recentHistory
@@ -198,18 +198,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 return generateTFIDFVector(page.content, allContents);
             });
 
-          console.log("Trenutna stranica:", currentPage);
-console.log("Sadržaj trenutne stranice:", currentPageData ? currentPageData.content : "Nije pronađeno");
-console.log("Vektor trenutne stranice:", currentPageVector);
-console.log("Svi vektori stranica:", pages.map(p => generateTFIDFVector(p.content, allContents)));
+          //console.log("Trenutna stranica:", currentPage);
+//console.log("Sadržaj trenutne stranice:", currentPageData ? currentPageData.content : "Nije pronađeno");
+//console.log("Vektor trenutne stranice:", currentPageVector);
+//console.log("Svi vektori stranica:", pages.map(p => generateTFIDFVector(p.content, allContents)));
 
 
-          console.log("Vektori stranica:", pages.map(p => generateTFIDFVector(p.content, allContents)));
+          //console.log("Vektori stranica:", pages.map(p => generateTFIDFVector(p.content, allContents)));
 
 
 
-          console.log("Vektor trenutne stranice:", currentPageVector);
-            console.log("Vektori zadnjih stranica:", recentVectors);
+          //console.log("Vektor trenutne stranice:", currentPageVector);
+           // console.log("Vektori zadnjih stranica:", recentVectors);
 
     
         // Izračunaj sličnost svake stranice s trenutnom i zadnjim posjećenima
