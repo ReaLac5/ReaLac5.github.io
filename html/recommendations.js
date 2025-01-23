@@ -175,12 +175,28 @@ document.addEventListener("DOMContentLoaded", () => {
         );*/
         let currentPageData = pages.find(page => page.name === currentPage);
         currentPageVector = generateTFIDFVector(currentPageData.content, allContents);
-        let recentVectors = recentHistory
+        /*let recentVectors = recentHistory
           .map(url => {
             let page = pages.find(p => p.name === url);
             return page ? generateTFIDFVector(page.content, allContents) : null;
           })
-          .filter(v => v); // Filtriraj null vrijednosti
+          .filter(v => v); // Filtriraj null vrijednosti*/
+
+          let recentVectors = recentHistory
+            .map(url => {
+                let page = pages.find(p => p.name === url);
+                if (!page) {
+                console.warn(`Stranica "${url}" nije pronađena u popisu stranica.`);
+                return Array(allContents.join(' ').split(/\s+/).length).fill(0); // Vraćamo vektor nula za nepostojeće stranice
+                }
+                return generateTFIDFVector(page.content, allContents);
+            });
+
+          console.log("Trenutna stranica:", currentPage);
+console.log("Sadržaj trenutne stranice:", currentPageData ? currentPageData.content : "Nije pronađeno");
+console.log("Vektor trenutne stranice:", currentPageVector);
+console.log("Svi vektori stranica:", pages.map(p => generateTFIDFVector(p.content, allContents)));
+
 
           console.log("Vektori stranica:", pages.map(p => generateTFIDFVector(p.content, allContents)));
 
