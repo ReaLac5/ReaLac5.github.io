@@ -75,7 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ];
   
     // Dohvaćanje preporuka
-    let recommendations = getRecommendations(userHistory, pages);
+    //let recommendations = getRecommendations(userHistory, pages);
+    let recommendations = getRecommendations(currentPage, userHistory.slice(-3), pages);
     displayRecommendations(recommendations);
   
     // Funkcija za izračunavanje Cosine Similarity
@@ -95,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
       return dotProduct / (normA * normB);
     }
+
   
     // Funkcija za generiranje vektora značajki stranice
     function generateFeatureVector(content, allContents) {
@@ -111,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     // Funkcija za dohvaćanje preporuka
-    function getRecommendations(userHistory, pages) {
+    /*function getRecommendations(userHistory, pages) {
       let allContents = pages.map(page => page.content);
       let recommendedPages = [];
   
@@ -133,7 +135,46 @@ document.addEventListener("DOMContentLoaded", () => {
   
       recommendedPages.sort((a, b) => b.score - a.score);
       return recommendedPages.slice(0, 3); // Top 3 preporuke
-    }
+    }*/
+
+      function getRecommendations(currentPage, recentHistory, pages) {
+        let allContents = pages.map(page => page.content);
+        let recommendedPages = [];
+    
+        // Generiraj vektore za trenutnu i zadnje posjećene stranice
+        let currentPageVector = generateFeatureVector(
+          pages.find(page => page.name === currentPage)?.content || "",
+          allContents
+        );
+        let recentVectors = recentHistory
+          .map(url => {
+            let page = pages.find(p => p.name === url);
+            return page ? generateFeatureVector(page.content, allContents) : null;
+          })
+          .filter(v => v); // Filtriraj null vrijednosti
+    
+        // Izračunaj sličnost svake stranice s trenutnom i zadnjim posjećenima
+        pages.forEach(page => {
+          if (!recentHistory.includes(page.name) && page.name !== currentPage) {
+            let pageVector = generateFeatureVector(page.content, allContents);
+            let similarityScore = 0;
+    
+            // Sličnost s trenutnom stranicom
+            similarityScore += cosineSimilarity(currentPageVector, pageVector);
+    
+            // Sličnost sa zadnjim posjećenim stranicama
+            recentVectors.forEach(recentVector => {
+              similarityScore += cosineSimilarity(recentVector, pageVector);
+            });
+    
+            recommendedPages.push({ page: page.name, score: similarityScore });
+          }
+        });
+    
+        // Sortiraj prema sličnosti i uzmi top 3
+        recommendedPages.sort((a, b) => b.score - a.score);
+        return recommendedPages.slice(0, 3); // Top 3 preporuke
+      }
   
     // Funkcija za prikaz preporuka na stranici
     function displayRecommendations(recommendations) {
