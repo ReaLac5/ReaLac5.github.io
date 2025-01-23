@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
         recommendedPages.sort((a, b) => b.score - a.score);
         return recommendedPages.slice(0, 3); // Top 3 preporuke
     }
-  
+
     // Funkcija za prikaz preporuka na stranici
     function displayRecommendations(recommendations) {
         const recommendationsList = document.getElementById("recommendations-list");
@@ -187,3 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+
+function clearUserHistory() {
+    document.cookie = "userHistory=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    console.log("Korisnička povijest obrisana.");
+  }
