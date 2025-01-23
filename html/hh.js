@@ -32,7 +32,8 @@ function handleSignoutClick() {
     document.getElementById('chartContainer').style.display = 'none';
     document.getElementById('signoutButton').style.display = 'none';
     document.getElementById('header').style.display = 'none';
-    document.getElementById('controls').style.display = 'none'; 
+    document.getElementById('controls').style.display = 'none';
+    document.getElementById('value').style.display = 'none';
     console.log("User signed out.");
   });
   localStorage.removeItem("access_token");
