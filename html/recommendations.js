@@ -71,6 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
         {
           name: "cv",
           content: "Moj životopis (CV)\nPreuzmi CV"
+        },
+        {
+            name: "chart",
+            //content: "Google Analytics Podaci\n\nOdaberite vremenski raspon:\n- Danas\n- Posljednjih 7 dana\n- Posljednjih mjesec dana\n- Posljednja 3 mjeseca\n\nUčitaj podatke i pregledaj analitiku vezanu uz vaše stranice. Pregledajte preporučene stranice, obrišite povijest i pratite aktivnosti posjetitelja.\n\nPrijavite se s Google računom ili se odjavite prema potrebi.\n\nDostupne opcije: \n- Kontaktiraj me\n- Moj životopis\n- Analitika\n\nOvdje možete pratiti vašu online prisutnost s detaljnim uvidima u promet i angažman."
+            content: "Google Analytics Podaci\n\nOdaberite vremenski raspon:\n\n- Danas\n- Posljednjih 7 dana\n- Posljednjih mjesec dana\n- Posljednja 3 mjeseca\n\nUčitaj podatke\n\nPreporučene stranice\n\nObriši povijest\n\nPrijavite se s Google računom\nOdjavite se"
         }
       ];
   
