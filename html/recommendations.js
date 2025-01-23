@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
     // Funkcija za generiranje vektora značajki stranice
-    function generateFeatureVector(content, allContents) {
+    /*function generateFeatureVector(content, allContents) {
       const wordFrequency = {};
       const allWords = allContents.join(' ').split(/\s+/);
       const uniqueWords = [...new Set(allWords)];
@@ -110,7 +110,34 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   
       return uniqueWords.map(word => wordFrequency[word] || 0);
-    }
+    }*/
+
+      function generateTFIDFVector(content, allContents) {
+        const allWords = allContents.join(' ').split(/\s+/); // Sve riječi u svim sadržajima
+        const uniqueWords = [...new Set(allWords)]; // Jedinstvene riječi
+        const wordFrequency = {}; // Učestalost riječi u trenutnom sadržaju
+        const documentFrequency = {}; // Broj dokumenata u kojima se pojavljuje riječ
+      
+        // Broj dokumenata
+        const numDocuments = allContents.length;
+      
+        // Izračunaj učestalost riječi u trenutnom sadržaju
+        uniqueWords.forEach(word => {
+          const wordCountInContent = content.split(/\s+/).filter(w => w === word).length;
+          wordFrequency[word] = wordCountInContent;
+      
+          // Izračunaj broj dokumenata u kojima se riječ pojavljuje
+          documentFrequency[word] = allContents.filter(text => text.includes(word)).length;
+        });
+      
+        // Generiraj TF-IDF vektor
+        return uniqueWords.map(word => {
+          const tf = wordFrequency[word] || 0; // Term Frequency
+          const idf = Math.log(numDocuments / (documentFrequency[word] || 1)); // Inverse Document Frequency
+          return tf * idf; // TF-IDF
+        });
+      }
+      
   
     // Funkcija za dohvaćanje preporuka
     /*function getRecommendations(userHistory, pages) {
@@ -142,18 +169,18 @@ document.addEventListener("DOMContentLoaded", () => {
         let recommendedPages = [];
     
         // Generiraj vektore za trenutnu i zadnje posjećene stranice
-        let currentPageVector = generateFeatureVector(
+        let currentPageVector = generateTFIDFVector(
           pages.find(page => page.name === currentPage)?.content || "",
           allContents
         );
         let recentVectors = recentHistory
           .map(url => {
             let page = pages.find(p => p.name === url);
-            return page ? generateFeatureVector(page.content, allContents) : null;
+            return page ? generateTFIDFVector(page.content, allContents) : null;
           })
           .filter(v => v); // Filtriraj null vrijednosti
 
-          console.log("Vektori stranica:", pages.map(p => generateFeatureVector(p.content, allContents)));
+          console.log("Vektori stranica:", pages.map(p => generateTFIDFVector(p.content, allContents)));
 
 
 
@@ -164,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Izračunaj sličnost svake stranice s trenutnom i zadnjim posjećenima
         pages.forEach(page => {
             if (page.name !== currentPage) {
-              let pageVector = generateFeatureVector(page.content, allContents);
+              let pageVector = generateTFIDFVector(page.content, allContents);
               let similarityScore = 0;
           
               // Sličnost s trenutnom stranicom
