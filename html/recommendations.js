@@ -19,16 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     // Funkcija za ažuriranje korisničke povijesti
-    /*function updateUserHistory(pageName) {
-      let userHistory = getCookie('userHistory');
-      userHistory = userHistory ? JSON.parse(userHistory) : [];
-  
-      if (!userHistory.includes(pageName)) {
-        userHistory.push(pageName);
-        setCookie('userHistory', JSON.stringify(userHistory), 1); // Kolačić vrijedi 1 dan
-      }
-    }*/
-
     function updateUserHistory(pageName) {
         let userHistory = getCookie('userHistory');
         userHistory = userHistory ? JSON.parse(userHistory) : [];
@@ -85,13 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             name: "chart",
-            //content: "Google Analytics Podaci\n\nOdaberite vremenski raspon:\n- Danas\n- Posljednjih 7 dana\n- Posljednjih mjesec dana\n- Posljednja 3 mjeseca\n\nUčitaj podatke i pregledaj analitiku vezanu uz vaše stranice. Pregledajte preporučene stranice, obrišite povijest i pratite aktivnosti posjetitelja.\n\nPrijavite se s Google računom ili se odjavite prema potrebi.\n\nDostupne opcije: \n- Kontaktiraj me\n- Moj životopis\n- Analitika\n\nOvdje možete pratiti vašu online prisutnost s detaljnim uvidima u promet i angažman."
             content: "Google Analytics Podaci\n\nOdaberite vremenski raspon:\n\n- Danas\n- Posljednjih 7 dana\n- Posljednjih mjesec dana\n- Posljednja 3 mjeseca\n\nUčitaj podatke\n\nPreporučene stranice\n\nObriši povijest\n\nPrijavite se s Google računom\nOdjavite se"
         }
       ];
   
     // Dohvaćanje preporuka
-    //let recommendations = getRecommendations(userHistory, pages);
     let recommendations = getRecommendations(currentPage, userHistory.slice(-3, -1), pages);
     displayRecommendations(recommendations);
   
@@ -115,19 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
     // Funkcija za generiranje vektora značajki stranice
-    /*function generateFeatureVector(content, allContents) {
-      const wordFrequency = {};
-      const allWords = allContents.join(' ').split(/\s+/);
-      const uniqueWords = [...new Set(allWords)];
-  
-      uniqueWords.forEach(word => {
-        const wordCountInContent = content.split(/\s+/).filter(w => w === word).length;
-        wordFrequency[word] = wordCountInContent;
-      });
-  
-      return uniqueWords.map(word => wordFrequency[word] || 0);
-    }*/
-
       function generateTFIDFVector(content, allContents) {
         const allWords = allContents.join(' ').split(/\s+/); // Sve riječi u svim sadržajima
         const uniqueWords = [...new Set(allWords)]; // Jedinstvene riječi
@@ -156,48 +131,11 @@ document.addEventListener("DOMContentLoaded", () => {
       
   
     // Funkcija za dohvaćanje preporuka
-    /*function getRecommendations(userHistory, pages) {
-      let allContents = pages.map(page => page.content);
-      let recommendedPages = [];
-  
-      let userVisitedVectors = userHistory.map(url => {
-        let page = pages.find(p => p.name === url);
-        return page ? generateFeatureVector(page.content, allContents) : null;
-      }).filter(v => v); // Filtriramo null vrijednosti
-  
-      pages.forEach(page => {
-        let pageVector = generateFeatureVector(page.content, allContents);
-        let similarityScore = 0;
-  
-        userVisitedVectors.forEach(userVector => {
-          similarityScore += cosineSimilarity(userVector, pageVector);
-        });
-  
-        recommendedPages.push({ page: page.name, score: similarityScore });
-      });
-  
-      recommendedPages.sort((a, b) => b.score - a.score);
-      return recommendedPages.slice(0, 3); // Top 3 preporuke
-    }*/
-
       function getRecommendations(currentPage, recentHistory, pages) {
         let allContents = pages.map(page => page.content);
         let recommendedPages = [];
-    
-        // Generiraj vektore za trenutnu i zadnje posjećene stranice
-        /*let currentPageVector = generateTFIDFVector(
-          pages.find(page => page.name === currentPage)?.content || "",
-          allContents
-        );*/
-        //console.log(currentPage);
         let currentPageData = pages.find(page => page.name === currentPage);
         currentPageVector = generateTFIDFVector(currentPageData.content, allContents);
-        /*let recentVectors = recentHistory
-          .map(url => {
-            let page = pages.find(p => p.name === url);
-            return page ? generateTFIDFVector(page.content, allContents) : null;
-          })
-          .filter(v => v); // Filtriraj null vrijednosti*/
 
           let recentVectors = recentHistory
             .map(url => {
@@ -208,20 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 return generateTFIDFVector(page.content, allContents);
             });
-
-          //console.log("Trenutna stranica:", currentPage);
-//console.log("Sadržaj trenutne stranice:", currentPageData ? currentPageData.content : "Nije pronađeno");
-//console.log("Vektor trenutne stranice:", currentPageVector);
-//console.log("Svi vektori stranica:", pages.map(p => generateTFIDFVector(p.content, allContents)));
-
-
-          //console.log("Vektori stranica:", pages.map(p => generateTFIDFVector(p.content, allContents)));
-
-
-
-          //console.log("Vektor trenutne stranice:", currentPageVector);
-           // console.log("Vektori zadnjih stranica:", recentVectors);
-
     
         // Izračunaj sličnost svake stranice s trenutnom i zadnjim posjećenima
         pages.forEach(page => {
@@ -229,16 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
               let pageVector = generateTFIDFVector(page.content, allContents);
               let similarityScore = 0;
           
-              // Sličnost s trenutnom stranicom
-              /*if (currentPageVector) {
-                similarityScore += cosineSimilarity(currentPageVector, pageVector);
-              }
-          
-              // Sličnost sa zadnje posjećenom stranicom
-              if (recentVectors.length > 0) {
-                similarityScore += cosineSimilarity(recentVectors[recentVectors.length - 1], pageVector);
-              }*/
-
                 // Veći prioritet trenutnoj stranici
                 similarityScore += 2 * cosineSimilarity(currentPageVector, pageVector);
 
@@ -253,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
         // Sortiraj prema sličnosti i uzmi top 3
         recommendedPages.sort((a, b) => b.score - a.score);
-        return recommendedPages.slice(0, 3); // Top 3 preporuke
+        return recommendedPages.slice(0, 3);
       }
   
     // Funkcija za prikaz preporuka na stranici
@@ -298,7 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
           link.textContent = "Projekt 3";
           link.href = "project3.html";
         }
-        //listItem.textContent = rec.page;
         listItem.appendChild(link);
         recommendationsList.appendChild(listItem);
       });

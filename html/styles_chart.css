@@ -1,67 +1,45 @@
-/* Sakrivanje tipke za odjavu prema zadanim postavkama */
-/*button[onclick="handleSignoutClick()"] {
-    display: none;
-  }*/
-  
-/*.chart-container {
-  display: none;
-  width: 100%; /* Grafikoni zauzimaju cijelu širinu roditeljskog elementa 
-  max-width: 1200px; /* Maksimalna širina grafikona 
-  margin: 20px auto; /* Centriranje grafikona s automatskim razmakom 
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column; /* Grafikoni jedan ispod drugog 
-  gap: 20px; /* Razmak između grafikona 
-}*/
-
 #signoutButton {
   display: none;
 }
 
-/* Osiguraj da je body u pravoj širini i bez skrolanja u horizontalnom smjeru */
 body.page-container {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden; /* Sprečava horizontalno skrolanje */
-  box-sizing: border-box; /* Osigurava da padding i margin ne izlaze iz okvira */
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
-/* chartContainer treba zauzimati 100% širine i biti unutar body-a */
 #chartContainer {
-  width: 100%; /* Osiguraj da kontejner zauzima 100% širine roditelja (body) */
-  max-width: 100%; /* Ovdje se osigurava da ne izlazi izvan roditeljskog kontejnera */
-  margin: 0 auto; /* Centriranje ako je potrebno */
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
   display: flex;
-  flex-wrap: wrap; /* Omogućava wrapanje za sadržaj */
-  box-sizing: border-box; /* Pomoć u izračunu širine s paddingom */
+  flex-wrap: wrap;
+  box-sizing: border-box;
   background-color: rgb(255, 255, 255);
   justify-content: center;
 }
 
-/* Prilagodba za chart-wrapper */
 .chart-wrapper {
-  width: 25%; /* Grafikoni će zauzimati do 45% širine, prilagodljivo */
-  margin: 10px; /* Razmak između grafikona */
-  box-sizing: border-box; /* Sprječava da margin ulazi u širinu */
+  width: 25%;
+  margin: 10px;
+  box-sizing: border-box;
 }
 
-/* Prilagodba za canvas elemente */
 canvas {
-  width: 100% !important; /* Širina kanvasa postavljena na 100% */
-  height: auto !important; /* Visina se automatski prilagođava */
-  max-height: 400px; /* Visina može biti ograničena prema želji */
+  width: 100% !important;
+  height: auto !important;
+  max-height: 400px;
 }
 
 #recommendations-list {
-  list-style-position: inside; /* Smješta bullet unutar elementa */
-  padding-left: 0; /* Uklanja automatski lijevi razmak */
-  text-align: center; /* Centriranje sadržaja unutar svakog list item-a */
+  list-style-position: inside;
+  padding-left: 0;
+  text-align: center;
 }
 
 #recommendations-list li {
-  display: inline-block; /* Postavlja svaku listu kao blok za centriranje */
-  margin: 5px 15px; /* Daje prostor između stavki, po želji */
+  display: inline-block;
+  margin: 5px 15px;
 }

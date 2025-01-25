@@ -1,10 +1,8 @@
-// const CLIENT_ID = '1097344377477-00qph6q9jiin2muv6ntpsg9go98lqbfe.apps.googleusercontent.com';
-//         const API_KEY = 'AIzaSyBdJdlS7a_e3oidJYrT9PfnAxPYtXri0UM';
 const DISCOVERY_DOCS = ['https://analyticsdata.googleapis.com/$discovery/rest?version=v1beta'];
 const SCOPES = 'https://www.googleapis.com/auth/analytics.readonly';
-const CLIENT_ID = '1097344377477-00qph6q9jiin2muv6ntpsg9go98lqbfe.apps.googleusercontent.com';  // Zamijeni s tvojim Client ID-om
-const API_KEY = 'AIzaSyBdJdlS7a_e3oidJYrT9PfnAxPYtXri0UM';  // Zamijeni s tvojim API Key-om
-const PROPERTY_ID = '474019939';  // Zamijeni s tvojim Property ID-om
+const CLIENT_ID = '1097344377477-00qph6q9jiin2muv6ntpsg9go98lqbfe.apps.googleusercontent.com';
+const API_KEY = 'AIzaSyBdJdlS7a_e3oidJYrT9PfnAxPYtXri0UM'
+const PROPERTY_ID = '474019939';
 
 let tokenClient;
 
@@ -52,7 +50,6 @@ async function fetchAnalyticsData(dateRangeValue = "today") {
   document.getElementById('header').style.display = 'block';
   document.getElementById('controls').style.display = 'block';
 
-  //const { startDate, endDate } = getDateRange(dateRangeValue);
   const url = `https://analyticsdata.googleapis.com/v1beta/properties/${PROPERTY_ID}:runReport`;
 
   const requestBodies = {
@@ -133,35 +130,10 @@ async function fetchAnalyticsData(dateRangeValue = "today") {
 
     renderCharts_session(responses_session);
 
-
-    /*const responses_topPages = await Promise.all(
-      Object.entries(requestBodies_topPages).map(async ([key, body]) => {
-        const responses_topPages = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body),
-        });
-        if (!responses_topPages.ok) {
-          const errorDetails = await responses_topPages.json();
-          throw new Error(`${key} API Error: ${errorDetails.error.message}`);
-        }
-        return { key, data: await responses_topPages.json() };
-      })
-    );
-
-    const chartData_topPages = Object.fromEntries(responses_topPages.map(({ key, data }) => [key, data]));
-    renderCharts_topPages(chartData_topPages);*/
-
-
   } catch (err) {
     console.error("Greška u dohvaćanju podataka:", err);
   }
 }
-
-
 
 async function renderCharts_session(response) {
     const chartContainer = document.getElementById("chartContainer");
@@ -172,7 +144,7 @@ async function renderCharts_session(response) {
 
     const chartCanvas = document.createElement("canvas");
     chartCanvas.id = `chart_session`;
-    chartWrapper.appendChild(chartCanvas); // Dodaj canvas u novi div
+    chartWrapper.appendChild(chartCanvas);
     chartContainer.appendChild(chartWrapper);
 
   try {
@@ -181,11 +153,11 @@ async function renderCharts_session(response) {
 
     // Priprema podataka za graf
     const chartData = {
-      labels: ['Session Duration'], // Jedan naziv, jer imamo samo jedan redak podataka
+      labels: ['Session Duration'],
       datasets: [
         {
           label: 'Prosječno trajanje sesije (seconds)',
-          data: [parseFloat(data.rows[0].metricValues[0].value)], // Vrijednost trajanja sesije u sekundama
+          data: [parseFloat(data.rows[0].metricValues[0].value)],
           borderColor: 'rgba(75, 192, 192, 1)',
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           fill: true,
@@ -194,7 +166,7 @@ async function renderCharts_session(response) {
     };
 
     new Chart(chartCanvas.getContext('2d'), {
-      type: 'bar', // Tip grafa: koristi bar jer imamo samo jednu metriku
+      type: 'bar',
       data: chartData,
       options: {
         responsive: true,
@@ -236,17 +208,17 @@ function renderCharts(chartData) {
 
     const chartCanvas = document.createElement("canvas");
     chartCanvas.id = `chart_${key}`;
-    chartWrapper.appendChild(chartCanvas); // Dodaj canvas u novi div
+    chartWrapper.appendChild(chartCanvas);
     chartContainer.appendChild(chartWrapper);
 
     const type = types[index % types.length];
 
     new Chart(chartCanvas.getContext('2d'), {
-      type: type, // Postavi tip grafikona
+      type: type,
       data: {
         labels: labels,
         datasets: [{
-          label: `Broj aktivnih korisnika ${key}`, // Postavi labelu za grafikon
+          label: `Broj aktivnih korisnika ${key}`,
           data: values,
           backgroundColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
           borderColor: labels.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`),
@@ -260,7 +232,7 @@ function renderCharts(chartData) {
         plugins: {
           legend: { 
             position: 'top',
-            display: type !== 'bar' // Ako je tip 'bar', neće biti legende
+            display: type !== 'bar'
           },
           title: { 
             display: true, 
@@ -268,7 +240,7 @@ function renderCharts(chartData) {
           },
         },
         layout: {
-          padding: 10 // Dodaj padding oko grafikona
+          padding: 10
         }
       },
     });
